@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsgx.admin.mapper.ConfigMapper">
+	<update id="update"   parameterType="com.lsgx.admin.model.Config">
+		update cs_config set
+			value = #{value}
+		where
+		    key = #{key}	
+	</update>
+	<!--获取单个参数的信息 -->
+	<select id="selectById" parameterType="int" resultType="com.lsgx.admin.model.Config">
+		select * from cs_config where id=#{id}
+	</select>
+	<select id="selectByKey" parameterType="string" resultType="com.lsgx.admin.model.Config">
+		select * from cs_config where configKey = #{configKey}
+	</select>
+	<!-- 查询所有的系统配置信息 -->
+	<select id="queryAll"  resultType="com.lsgx.admin.model.Config">
+		select * from cs_config
+	</select>
+	<!-- 根据参数查询系统配置信息 -->
+	<select id="queryByParam" parameterType="com.lsgx.admin.model.Config" resultType="com.lsgx.admin.model.Config">
+		select * from cs_config
+		<where>
+			<if test="configKey!=null and configKey!='' ">
+				and configKey like "%"#{configKey}"%"
+			</if>
+			<if test="configValue!=null and configValue!='' ">
+				and configValue like "%"#{configValue}"%"
+			</if>
+			<if test="multiValue!=null ">
+				and multiValue like "%"#{multiValue}"%"
+			</if>
+			<if test="empty!=null ">
+				and empty like "%"#{empty}"%"
+			</if>
+			<if test="regular !=null and regular !=''">
+				and regular like "%"#{regular}"%"
+			</if>
+		</where>
+	</select>
+	<!-- 添加系统配置信息 -->
+	<insert id="configAdd" parameterType="com.lsgx.admin.model.Config" useGeneratedKeys="true" keyProperty="id">
+		insert into cs_config
+  		(
+  			configKey,
+  			configValue,
+  			multiValue,
+  			empty,
+  			regular,
+  			prompt
+  		)
+  		values
+  		(
+            #{configKey},
+  			#{configValue},
+  			#{multiValue},
+  			#{empty},
+  			#{regular},
+  			#{prompt}
+  		)  
+	</insert>
+	<!-- 删除系统参数配置信息 -->
+	<delete id="configDelete" parameterType="int">
+		delete from cs_config where id=#{id}
+	</delete>
+	<!-- 修改参数信息 -->
+	<update id="configEdit" parameterType="com.lsgx.admin.model.Config">
+	   update cs_config set
+	     configKey = #{configKey},
+  	     configValue = #{configValue},
+         multiValue = #{multiValue},
+         regular=#{regular},
+         prompt=#{prompt}
+       where id = #{id}
+	</update>
+</mapper>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsgx.admin.mapper.ActionRoleMapper">
+	<resultMap id="ActionRole" type="com.lsgx.admin.model.ActionRole">
+		<result property="id" column="id"></result>
+		<result property="roleName" column="roleName"></result>
+		<result property="isAdmin" column="isAdmin"></result>
+		<result property="createTime" column="createTime"></result>
+		<result property="description" column="description"></result>
+	</resultMap>
+	
+	<!-- 角色列表查询 sql -->
+	<select id="queryRoleList" parameterType="com.github.pagehelper.Page"
+		resultType="com.lsgx.admin.model.ActionRole">
+		select * from action_role 
+			order by id asc 
+	</select>
+	
+	<!-- 角色列表总数查询 sql -->
+	<select id="queryRoleListCount" parameterType="com.github.pagehelper.Page" resultType="int">
+		select count(1) as a from action_role
+	</select>
+	
+	<!-- 获取单个详细信息 -->
+	<select id="roleEdit" resultType="com.lsgx.admin.model.ActionRole" parameterType="int">
+		select * from action_role where id = #{id}
+	</select>
+	
+	<!-- 修改保存信息 -->
+	<update id="roleEditOk" parameterType="com.lsgx.admin.model.ActionRole">
+  		update action_role set
+  		    roleName = #{roleName},
+  		    isAdmin = #{isAdmin},
+  		    createTime = #{createTime},
+  		    description = #{description}
+  		where
+  		    id = #{id}
+  	</update>
+	<!-- 角色信息删除 -->
+	<delete id="roleDelete"  parameterType="int">
+		delete  from action_role where id=#{id}
+	</delete>
+	
+	<!-- 角色新增 sql -->
+	<insert id="roleAdd" parameterType="com.lsgx.admin.model.ActionRole" useGeneratedKeys="true" keyProperty="id">
+  		insert into action_role
+  		(
+  			roleName,
+  			isAdmin,
+  			createTime,
+  			description
+  		)
+  		values
+  		(
+            #{roleName},
+  			#{isAdmin},
+  			#{createTime},
+  			#{description}
+  		) 
+  	</insert> 
+  	
+  	<!-- 分配角色__查询全部角色信息 sql -->
+	<select id="selectRoleList" parameterType="int"
+		resultType="com.lsgx.admin.model.ActionRole">
+		select * from action_role where isAdmin = #{isAdmin}
+	</select>
+</mapper>

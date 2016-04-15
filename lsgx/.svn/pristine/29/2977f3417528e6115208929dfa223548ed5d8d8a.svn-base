@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsgx.admin.mapper.ActionFunctionMapper">
+	<resultMap id="ActionFunction" type="com.lsgx.admin.model.ActionFunction">
+		<result property="id" column="id"></result>
+		<result property="funName" column="funName"></result>
+		<result property="action" column="action"></result>
+		<result property="displayMode" column="displayMode"></result>
+		<result property="parentFun" column="parentFun"></result>
+		<result property="code" column="code"></result>
+		<result property="rel" column="rel"></result>
+		<result property="target" column="target"></result>
+		<result property="parentName" column="parentName"></result>
+	</resultMap>
+	
+	<!-- 用户登录初始化菜单权限 带参数 -->
+	<select id="indexUserFunParam" resultType="com.lsgx.admin.model.ActionFunction" parameterType="com.lsgx.admin.model.ActionUser">
+		select f.* from action_function f , action_roleFun r, action_userRole u 
+		<where>
+			f.id = r.funId 
+ 			and r.roleId = u.roleId 
+  			and u.userId = #{id} 
+  			and f.displayMode = '1' 
+		</where>
+			group by f.id 
+			order by f.id asc
+	</select>
+	
+	<!-- 菜单列表查询 sql -->
+	<select id="queryFunctionList" parameterType="map"
+		resultType="com.lsgx.admin.model.ActionFunction">
+		select * from action_function where 1=1 
+		<if test="funName != null"> and funName  like '%'  #{funName} '%' </if>
+		<if test="action != null"> and action  like '%'  #{action} '%' </if>
+			order by id asc 
+	</select>
+	
+	<!-- 菜单列表总数查询 sql -->
+	<select id="queryFunctionListCount" parameterType="com.github.pagehelper.Page"
+		 resultType="int">
+		select count(1) as a from action_function where 1=1 
+		<if test="params.funName != null"> and funName  like '%' #{params.funName} '%' </if>
+		<if test="params.action != null"> and action  like '%'  #{params.action} '%' </if>
+	</select>
+	
+	<!-- 获取单个信息父类 -->
+	<select id="functionEditParentFun" resultType="com.lsgx.admin.model.ActionFunction" parameterType="int">
+		select * from action_function f where f.id = #{id}
+	</select>
+	
+	<!-- 获取单个详细信息 -->
+	<select id="functionEdit" resultType="com.lsgx.admin.model.ActionFunction" parameterType="int">
+		select aa.*,af.funName as parentName from action_function af, 
+			(select * from action_function f where f.id = #{id}) as aa 
+				where af.id = aa.parentFun 
+	</select>
+	
+	<!-- 修改保存信息 -->
+	<update id="functionEditOk" parameterType="com.lsgx.admin.model.ActionFunction">
+  		update action_function set
+  		    funName = #{funName},
+  		    action = #{action},
+  		    displayMode = #{displayMode},
+  		    parentFun = #{parentFun},
+  		    target = #{target},
+  		    rel = #{rel},
+  		    code = #{code}
+  		where
+  		    id = #{id}
+  	</update>
+	
+	<delete id="functionDelete"  parameterType="int">
+		delete  from action_function where id=#{id}
+	</delete>
+	
+	<!-- 菜单新增 sql -->
+	<insert id="functionAdd" parameterType="com.lsgx.admin.model.ActionFunction" useGeneratedKeys="true" keyProperty="id">
+  		insert into action_function
+  		(
+  			funName,
+  			action,
+  			displayMode,
+  			parentFun,
+  			rel,
+  			code,
+  			target
+  		)
+  		values
+  		(
+            #{funName},
+  			#{action},
+  			#{displayMode},
+  			#{parentFun},
+  			#{rel},
+  			#{code},
+  			#{target}
+  		) 
+  	</insert>
+  	
+  	<!-- 分配权限__查找全部权限 sql -->
+	<select id="selectRoleFunList" resultType="com.lsgx.admin.model.ActionFunction">
+		select * from action_function 
+	</select>
+	
+	<!-- 初始化菜单按钮权限 sql -->
+	<select id="functionListTo" resultType="com.lsgx.admin.model.ActionFunction" parameterType="int">
+		 select f.* from action_userRole ur,action_roleFun rf,action_function f 
+			 where ur.roleId = rf.roleId 
+			  and rf.funId = f.id 
+			  and ur.userId = #{userId} 
+			  group by f.id 
+	</select>
+</mapper>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lsgx.admin.mapper.MessageModelMapper">
+	<insert id="save" parameterType="MessageModel"  useGeneratedKeys="true" keyProperty="id">
+		insert into messageModel
+		(
+			modelName,
+			modelContext,
+			modelType,
+			status,
+			createTime,
+			operator,
+			note
+		)
+		values
+		(
+			#{modelName},
+			#{modelContext},
+			#{modelType},
+			#{status},
+			#{createTime},
+			#{operator},
+			#{note}
+		)
+	</insert>
+	
+ 	<update id="update"  parameterType="MessageModel">
+ 		update messageModel 
+ 		<set>
+ 			<if test="modelName != null and modelName != '' ">
+		 		modelName = #{modelName},
+ 			</if>
+ 			<if test="modelContext != null and modelContext != '' ">
+		 		modelContext = #{modelContext},
+ 			</if>
+ 			<if test="modelType != null">	
+ 				modelType= #{modelType},
+ 			</if>
+ 			<if test="status != null">	
+ 				status= #{status},
+ 			</if>
+ 			<if test="createTime != null">	
+ 				createTime= #{createTime},
+ 			</if>
+ 			<if test="operator != null">	
+ 				operator= #{operator},
+ 			</if>
+ 			<if test="note and note != '' ">
+ 				note= #{note},
+ 			</if>
+ 		</set>
+ 		<where>
+ 			id = #{id}
+ 		</where>
+ 	</update>
+	
+	 <select id="findByCondition" resultType="MessageModel" parameterType="map">
+ 		select * from messageModel
+ 		<where>
+ 			<if test="modelName != null and modelName != '' ">
+		 		and modelName like "%"#{modelName}"%"
+ 			</if>
+ 			<if test="modelContext != null and modelContext != '' ">
+		 		and modelContext like "%"#{modelContext}"%"
+ 			</if>
+ 			<if test="modelType != null">	
+ 				and modelType= #{modelType}
+ 			</if>
+ 			<if test="status != null">	
+ 				and status= #{status}
+ 			</if>
+ 			<if test="note!=null and note != '' ">
+ 				and note like "%"#{note}"%"
+ 			</if>
+ 		</where>
+ 		
+		<choose>
+			 <when test="orderField !=null and orderField !=''">
+				 order by  ${orderField} 
+				 <if test="orderDirection != null and orderDirection != ''">${orderDirection}</if>
+			</when> 
+			<otherwise>
+				 order by id DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="queryByLock" resultType="MessageModel" parameterType="Integer">
+			select * from messageModel where id = #{0} for update
+	</select>
+	
+	<select id="queryById"  resultType="MessageModel"  parameterType="Integer">
+		select * from messageModel where id=#{id}
+	</select>
+	
+	<select id="queryByModelName"  resultType="MessageModel"  parameterType="String">
+			select * from messageModel where modelName=#{modelName}
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete from messageModel where id=#{id}
+	</delete>
+</mapper>

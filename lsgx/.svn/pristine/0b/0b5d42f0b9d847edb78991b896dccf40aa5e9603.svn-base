@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+<!-- 	<mvc:annotation-driven/> -->
+
+	<context:annotation-config />
+
+	<context:component-scan base-package="com.lsgx.admin.controller,com.lsgx.admin.service,com.lsgx.admin.mapper" />
+	
+	<!-- 设置MultipartResolver用以文件上传 -->
+	<!-- 
+	p:defaultEncoding请求的编码格式，必须与JSP页面的编码一样
+	p:maxUploadSiz上传文件的大小。10MB
+	p:uploadTempDir上传文件的临时路径，文件上传完后，临时目录中的临时文件会被自动清除
+	-->
+	<bean id="multipartResolver" 
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8"></property>   
+        <property name="maxUploadSize" value="10485760"></property>  
+        <property name="maxInMemorySize" value="5242880"></property>
+	</bean>
+
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >
+		<property name="messageConverters">
+	        <array>
+	            <bean class = "org.springframework.http.converter.StringHttpMessageConverter">
+	                <property name="supportedMediaTypes" value = "text/plain;charset=UTF-8" />
+	            </bean>
+	        </array>
+	    </property>
+	</bean>
+	
+	<mvc:interceptors>    
+		<mvc:interceptor>  
+            <mvc:mapping path="/**" />
+            <bean class="com.lsgx.admin.interceptor.AuthorizeInterceptor"/>
+        </mvc:interceptor>  
+	</mvc:interceptors> 
+	
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/pages/" />
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+</beans>
+

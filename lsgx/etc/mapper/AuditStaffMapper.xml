@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lsgx.admin.mapper.AuditStaffMapper">
+ 	<select id="updateAuditStaff" resultType="AuditStaff" parameterType="AuditStaff">
+ 		update audit_staff 
+ 		<set>
+ 			<if test="state != null">
+		 		state = #{state},
+ 			</if>
+ 			<if test="reviewContent != null">
+				reviewContent = #{reviewContent},
+			</if>
+			<if test="reviewPerson != null">
+				reviewPerson = #{reviewPerson},
+			</if>
+			<if test="reviewTime != null">
+				reviewTime = #{reviewTime},
+			</if>
+ 		</set>
+ 		<where>
+ 			id = #{id}
+ 		</where>
+ 	</select>
+ 	
+ 	<select id="findAll" resultType="AuditStaff">
+ 		select * from audit_staff
+	</select>
+	
+ 	<select id="findById" resultType="AuditStaff" parameterType="int">
+ 		select * from audit_staff where id = #{id}
+	</select>
+	
+	 <select id="findByCondition" resultType="AuditStaff" parameterType="AuditStaffQueryVO">
+ 		select 
+ 			a.*,
+ 			u.userName,
+ 			u.realName
+ 	    from audit_staff a, frontUser u
+ 		
+ 		<where>
+ 			a.userId = u.id
+ 			<if test="userId != null ">
+				and userId=#{userId}
+			</if>
+			<if test="realName != null and realName != ''">
+				and u.realName like "%"#{realName}"%"
+			</if>
+ 			<if test="userName != null and userName != ''">
+				and u.username like "%"#{userName}"%"
+			</if>
+			<if test="personType != null and personType != ''">
+				and a.personType=#{personType}
+			</if>
+			<if test="state != null and state != '' ">
+				and a.state =#{state}
+			</if>
+			
+			<if test="startDate != null">
+				 AND reviewTime &gt;= #{startDate} 
+			</if>
+			<if test="endDate != null">
+				 AND reviewTime &lt;= #{endDate} 
+			</if>
+			
+ 		</where>
+ 		
+		<choose>
+			<when test="orderField !=null and orderField !=''">
+				 order by  ${orderField} 
+				 <if test="orderDirection != null and orderDirection != ''">${orderDirection}</if>
+			</when>
+			<otherwise>
+				 order by id DESC
+			</otherwise>
+		</choose>
+	</select>
+</mapper>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsgx.admin.mapper.UserCardMapper">
+	<insert id="save"  parameterType="UserCard"  useGeneratedKeys="true" keyProperty="id">
+		insert into  userCard 
+		(
+			userId,
+			bankName,
+			province,
+			area,
+			city,
+			card,
+			useState,
+			bankType,
+			isSelected
+		)
+		values
+		(
+			#{userId},
+			#{bankName},
+			#{province},
+			#{area},
+			#{city},
+			#{card},
+			#{useState},
+			#{bankType},
+			#{isSelected}
+		)
+	</insert>
+	
+	<select id = "queryByParam"  parameterType="map" resultType="UserCard">
+		select *  from  userCard  
+			<where>
+				<if test="useState != null">
+				 	and useState = #{useState}
+				</if>
+				
+				<if test="userId != null">
+				 	and userId = #{userId}
+				</if>
+				
+				<if test="card != null and card !=''">
+				 	and card like "%"#{card}"%"
+				</if>
+				
+				<if test="bankName != null and bankName !=''">
+				 	and bankName like "%"#{bankName}"%"
+				</if>
+				
+				<if test="province != null and province !='' ">
+					and province like "%"#{province}"%"
+				</if>
+				<if test="city != null and city !='' ">
+					and city like "%"#{city}"%"
+				</if>
+				<if test="area != null and area !=''">
+					and area like "%"#{area}"%"
+				</if>
+				<if test="id != null">
+					and id = #{id}
+				</if>
+				<if test="accountType != null">
+					and accountType = #{accountType}
+				</if>
+			</where>
+			<choose>
+				<when test="orderField !=null and orderField !=''">
+					 order by  ${orderField} 
+					 <if test="orderDirection != null and orderDirection != ''">${orderDirection}</if>
+				</when>
+				<otherwise>
+					 order by id DESC
+				</otherwise>
+			</choose>
+	</select>
+	
+	<select id = "queryUserCardByCard"   resultType="UserCard">
+		select *  from  userCard  where  card = #{0} and userId = #{1} 
+	</select>
+	
+	<!-- 通过账号查询 -->
+	<select id="selectByCard" parameterType="map" resultType="UserCard">
+		select * from userCard 
+		where card = #{card} and userId = #{userId}
+	</select>
+	
+	<!-- 修改信息 -->
+	<update id="update" parameterType="UserCard">
+		update   userCard 
+		<set>
+			<if test="card != null and card !='' ">
+			 	card = #{card},
+			</if>
+			<if test="useState != null">
+				useState = #{useState},
+			</if>
+			<if test="bankName != null and bankName !='' ">
+				bankName = #{bankName},
+			</if>
+			<if test="province != null and province !='' ">
+				province = #{province},
+			</if>
+			<if test="city != null and city !='' ">
+				city = #{city},
+			</if>
+			<if test="area != null and area !='' ">
+				area = #{area},
+			</if>
+			<if test="accountType != null">
+				accountType = #{accountType},
+			</if>
+			<if test="bankType != null">
+				bankType = #{bankType},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 通过id查询 -->
+	<select id="queryById" parameterType="int" resultType="UserCard">
+		select * from userCard where id=#{id}
+	</select>
+	
+	<!-- 通过id删除信息 -->
+	<delete id="delete" parameterType="int">
+		delete from userCard where id=#{id}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,104 @@
+package com.lsgx.admin.service;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.lsgx.admin.mapper.AlipayTradeMapper;
+import com.lsgx.admin.mapper.AlipayTradeQueryMapper;
+import com.lsgx.admin.model.AlipayTrade;
+import com.lsgx.admin.model.AlipayTrade;
+import com.lsgx.admin.model.AlipayTradeExample;
+import com.lsgx.admin.model.vo.AlipayTradeVO;
+import com.lsgx.admin.model.vo.AlipayTradeVO;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+
+/**
+ * Created by lin on 2015/12/29.
+ */
+@Service
+public class AlipayTradeService {
+    @Autowired
+    private AlipayTradeMapper alipayTradeMapper;
+
+    @Autowired
+    private AlipayTradeQueryMapper alipayTradeQueryMapper;
+    
+    /**
+     * �û��б��ѯ
+     * @return �û��б���Ϣ
+     */
+    public List<AlipayTrade> queryAlipayTradeList(AlipayTradeVO vo)
+    {
+        PageHelper.startPage(vo.getPageNum(), vo.getNumPerPage());
+        return alipayTradeQueryMapper.queryAlipayTradeList(vo);
+    }
+
+    /**
+     * 分页查询
+     */
+    public List<AlipayTradeVO> queryAlipayTradeListVo(AlipayTradeVO vo){
+        PageHelper.startPage(vo.getPageNum(),vo.getNumPerPage());
+        return alipayTradeQueryMapper.queryAlipayTradeListVO(vo);
+    }
+    
+    
+    public int countByExample(AlipayTradeExample example) {
+        return alipayTradeMapper.countByExample(example);
+    }
+
+    
+    public int deleteByExample(AlipayTradeExample example) {
+        return alipayTradeMapper.deleteByExample(example);
+    }
+
+    
+    public int deleteByPrimaryKey(Integer id) {
+        return alipayTradeMapper.deleteByPrimaryKey(id);
+    }
+
+    
+    public int insert(AlipayTrade record) {
+        return alipayTradeMapper.insert(record);
+    }
+
+    
+    public int insertSelective(AlipayTrade record) {
+        return alipayTradeMapper.insertSelective(record);
+    }
+
+
+
+    
+    public List<AlipayTrade> selectByExample(AlipayTradeExample example) {
+        return alipayTradeMapper.selectByExample(example);
+    }
+
+    
+    public AlipayTrade selectByPrimaryKey(Integer id) {
+        return alipayTradeMapper.selectByPrimaryKey(id);
+    }
+
+    
+    public int updateByExampleSelective(@Param("record") AlipayTrade record, @Param("example") AlipayTradeExample example) {
+        return alipayTradeMapper.updateByExampleSelective(record, example);
+    }
+
+
+    
+    public int updateByExample(@Param("record") AlipayTrade record, @Param("example") AlipayTradeExample example) {
+        return alipayTradeMapper.updateByExample(record, example);
+    }
+
+    
+    public int updateByPrimaryKeySelective(AlipayTrade record) {
+        return alipayTradeMapper.updateByPrimaryKeySelective(record);
+    }
+    
+    public int updateByPrimaryKey(AlipayTrade record) {
+        return alipayTradeMapper.updateByPrimaryKey(record);
+    }
+}

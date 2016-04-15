@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsgx.admin.mapper.CapitalinoutMapper">
+
+	<insert id="save" parameterType="Capitalinout" useGeneratedKeys="true" keyProperty="id">
+		insert into capitalinout
+		(
+			userId,
+			type,
+			money,
+			tranNum, 
+			payNum, 
+			source,
+			payType, 
+			bankType, 
+			account,
+			payState, 
+			payFailExplain,
+			inType,
+			balance
+		)
+		values 
+		(
+			#{userId},
+			#{type,},
+			#{money},
+			#{tranNum},
+		 	#{payNum}, 
+		 	#{source},
+			#{payType}, 
+			#{bankType},
+			#{account},
+			#{payState},
+			#{payFailExplain},
+			#{inType},
+			#{balance}
+		)
+	</insert>
+	
+	<!-- 通过userid查询记录 -->
+	<select id="selectByuserId" resultType="Capitalinout" parameterType="Integer">
+	    select * from capitalinout where userId = #{userId}
+	</select>
+	
+	<select id="queryUnPayAndTimeout"  resultType="Capitalinout">
+		select  * from capitalinout  where payState = 300 and type=0
+		and TIMESTAMPDIFF ( MINUTE  ,createTime  ,now()) >3 for update
+	</select>
+	
+	<select id="queryByLock"  resultType="Capitalinout" parameterType="Integer">
+		select  * from capitalinout  where  id=#{id} for update
+	</select>
+	
+	<select id="queryByTranNum"  resultType="Capitalinout" parameterType="String">
+		select  * from capitalinout  where  tranNum=#{tranNum} for update
+	</select>
+	
+	<select id="queryByParam"  parameterType="Capitalinout" resultType="Capitalinout">
+		select  t.* from capitalinout t
+		<where>
+ 			<if test="id != null">
+				and t.id = #{id}
+			</if>
+			
+			<if test="payNum != null and payNum != ''">
+				 and t.payNum = #{payNum} 
+			</if>
+			
+			<if test="tranNum != null and tranNum != ''">
+				 and t.tranNum = #{tranNum} 
+			</if>
+			
+			<if test="payState != null">
+				 and t.payState = #{payState} 
+			</if>
+			
+			<if test="userId != null">
+				 and t.userId = #{userId} 
+			</if>
+			
+			<if test="type != null ">
+				 and t.type = #{type} 
+			</if>
+				
+			<if test="payType != null and payType != ''">
+				 and t.payType = #{payType} 
+			</if>
+			
+			<if test="bankType != null and bankType != ''">
+				 and t.bankType = #{bankType} 
+			</if>
+			
+			<if test="source != null and source != ''">
+				 and t.source = #{source} 
+			</if>
+			
+			<if test="startDate != null">
+				 AND createTime &gt;= #{startDate} 
+			</if>
+			<if test="endDate != null">
+				 AND createTime &lt;= #{endDate} 
+			</if>
+			
+		</where>
+		
+		<choose>
+			<when test="orderField !=null and orderField !=''">
+				 order by  ${orderField} 
+				 <if test="orderDirection != null and orderDirection != ''">${orderDirection}</if>
+			</when>
+			<otherwise>
+				 order by id DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<update id="update"  parameterType="Capitalinout" >
+		update capitalinout
+		<set>
+		    <if test="money != null">
+				money = #{money},
+			</if>
+			<if test="tranNum != null and tranNum !=''">
+				tranNum = #{tranNum},
+			</if>
+			<if test="payState != null">
+				payState = #{payState},
+			</if>
+			<if test="type != null">
+				type = #{type},
+			</if>
+			<if test="source != null and source!=''">
+				source = #{source},
+			</if>
+			<if test="inType != null">
+				inType = #{inType},
+			</if>
+			<if test="payType != null and payType!=''">
+				payType = #{payType},
+			</if>
+			<if test="payNum != null and payNum!=''">
+				payNum = #{payNum},
+			</if>
+			<if test="balance != null">
+				balance = #{balance},
+			</if>
+			<if test="createTime != null">
+				createTime = #{createTime},
+			</if>
+		</set>
+		<where>
+			id=#{id}
+		</where>
+	</update>
+
+</mapper>

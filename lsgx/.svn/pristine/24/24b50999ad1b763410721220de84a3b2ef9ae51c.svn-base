@@ -1,0 +1,49 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ include file="../common/common.jsp"%>
+<div class="pageHeader">
+	<form id="pagerForm" method="post" action="/news/newsList.do">
+		<input type="hidden" name="pageNum" value="${page.pageNum }" />
+		<input type="hidden" name="numPerPage" value="${page.pageSize}" />
+		<input type="hidden" name="title" value="${nVo.title}" />
+		<input type="hidden" name="abstracts" value="${nVo.abstracts}" />
+		<input type="hidden" name="keywords" value="${nVo.keywords}" />
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar">
+		<ul class="toolBar">
+			<!-- 权限 -->
+			<priveliege:enable buttonCode="newsAdd">
+				<li><a class="add" href="/link/friendlylinkAdd.do" target="dialog" rel="friendlylinkAdd" title="添加友情链接" mask=true width="640" height="360"><span>添加友情链接</span></a></li>
+			</priveliege:enable>
+		</ul>
+	</div>
+	<table class="table" width="100%"   layoutH="140">
+		<thead>
+			<tr>
+				<th>网站标题</th>
+				<th>网站链接</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach  items="${links}" var="link">
+				<tr target="list_item_id" rel="${link.id }">
+					<td style="width:100px" title="${link.webtitle }">${link.webtitle }</td>
+					<td style="width:100px" title="${link.linkurl }">${link.linkurl }</td>
+					<td style="width:100px">
+					<priveliege:enable buttonCode="newsEdit">
+				    <a class="btnEdit" href="/link/friendlylinkEdit.do?id=${link.id}" target="dialog" rel="friendlylinkEdit" title="修改"mask="true" maxable="false" resizable="false" drawable="true"  width="680" height="480"><span>修改</span></a>
+					</priveliege:enable>
+					<priveliege:enable buttonCode="newsDelete">
+					<a class="btnDel" href="/link/friendlylinkDelete.do?id=${link.id}" target="ajaxTodo" rel="friendlyLinkDelete" title="删除"><span>删除</span></a></li>
+					</priveliege:enable>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	
+
+</div>

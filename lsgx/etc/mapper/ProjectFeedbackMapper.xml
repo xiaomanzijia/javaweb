@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsgx.admin.mapper.ProjectFeedbackMapper">
+
+	<update id="update" parameterType="ProjectFeedback">
+		update projectFeedback
+		<set>
+			<if test="projectId != null">
+				projectId = #{projectId},
+			</if>
+			<if test="feedbackPeople != null">
+				feedbackPeople = #{feedbackPeople},
+			</if>
+			<if test="content != null and content !='' ">
+				content = #{content},
+			</if>
+			
+			<if test="contentImageId != null and contentImageId !='' ">
+				contentImageId = #{contentImageId},
+			</if>
+			<if test="feedbackTime != null">
+				feedbackTime = #{feedbackTime},
+			</if>
+			
+			<if test="audit != null">
+				audit = #{audit},
+			</if>
+			<if test="auditState != null">
+				auditState = #{auditState},
+			</if>
+		</set>
+		<where>
+			id = #{id}  
+		</where>
+	</update>
+	
+	<select id="queryByParam"  resultType="ProjectFeedback"  parameterType="ProjectFeedback">
+	
+		select  p.*,f.userName from  projectFeedback p ,frontUser f
+			<where>
+				p.feedbackPeople = f.id  and p.audit is null
+				<if test="projectId != null">
+					and p.projectId = #{projectId}
+				</if>
+				
+				<if test="feedbackPeople != null">
+					and p.feedbackPeople = #{feedbackPeople}
+				</if>	
+				
+<!-- 				<if test="audit != null"> -->
+<!-- 					and p.audit = #{audit} -->
+<!-- 				</if> -->
+				<if test="auditState != null">
+					and p.auditState = #{auditState}
+				</if>
+				<if test="content != null and content != '' ">
+					and p.content = #{content}
+				</if>
+			</where>
+			
+		<choose>
+			<when test="orderField !=null and orderField !=''">
+				 order by  ${orderField} 
+				 <if test="orderDirection != null and orderDirection != ''">${orderDirection}</if>
+			</when>
+			<otherwise>
+				 order by p.id DESC
+			</otherwise>
+		</choose>
+			
+	</select>
+	
+	<!-- 通过审核人的id查询 -->
+	<select id="queryByAudit" parameterType="Integer" resultType="ProjectFeedback">
+		select * from projectFeedback
+		where audit=#{audit}
+	</select>
+	
+	<select id="queryById"  resultType="Integer"  parameterType="ProjectFeedback">
+	
+		select  p.*,f.userName from  projectFeedback p ,frontUser f  
+			<where>
+				p.feedbackPeople = f.id and f.id = #{id}
+			</where>
+		
+	</select>
+	
+	<!-- 保存数据 -->
+	<insert id="save" parameterType="ProjectFeedback">
+		insert into projectFeedback
+		(
+			projectId,
+			feedbackPeople,
+			content,
+			contentImageId,
+			feedbackTime,
+			audit,
+			auditState
+		)
+		values
+		(
+			#{projectId},
+			#{feedbackPeople},
+			#{content},
+			#{contentImageId},
+			#{feedbackTime},
+			#{audit},
+			#{auditState}
+		)
+	</insert>
+	
+</mapper>

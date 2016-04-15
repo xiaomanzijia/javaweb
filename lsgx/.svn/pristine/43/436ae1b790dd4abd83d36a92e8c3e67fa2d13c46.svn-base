@@ -1,0 +1,138 @@
+package com.lsgx.admin.model.vo;
+
+import java.util.Date;
+
+import com.lsgx.admin.model.BaseBean;
+
+public class BaseQueryVO extends BaseBean
+{
+    public final static int PAGE_SHOW_COUNT = 20;
+    
+    private int pageNum = 1;
+    
+    private int numPerPage = 0;
+    
+    //    private int pageSize = 0;
+    
+    //    private int totalCount = 0;
+    
+    private String orderField;
+    
+    private String orderDirection;
+    
+    //    private String keywords;
+    
+    //    private String status;
+    
+    //    private String type;
+    
+    private Date startDate;
+    
+    private Date endDate;
+    
+    //    public String getType()
+    //    {
+    //        return "".equals(type) ? null : type;
+    //    }
+    //    
+    //    public void setType(String type)
+    //    {
+    //        this.type = type;
+    //    }
+    //    
+    //    public String getStatus()
+    //    {
+    //        return "".equals(status) ? null : status;
+    //    }
+    //    
+    //    public void setStatus(String status)
+    //    {
+    //        this.status = status;
+    //    }
+
+    public Date getStartDate()
+    {
+        return startDate;
+    }
+    
+    public void setStartDate(Date startDate)
+    {
+        this.startDate = startDate;
+    }
+    
+    public Date getEndDate()
+    {
+        return endDate;
+    }
+    
+    public void setEndDate(Date endDate)
+    {
+        this.endDate = endDate;
+    }
+    
+    public int getPageNum()
+    {
+        return pageNum;
+    }
+    
+    public void setPageNum(int pageNum)
+    {
+        this.pageNum = pageNum;
+    }
+    
+    public String getOrderField()
+    {
+        return orderField;
+    }
+    
+    public void setOrderField(String orderField)
+    {
+        this.orderField = orderField;
+    }
+    
+    public String getOrderDirection()
+    {
+        return "desc".equals(orderDirection) ? "desc" : "asc";
+    }
+    
+    public void setOrderDirection(String orderDirection)
+    {
+        this.orderDirection = orderDirection;
+    }
+    
+    //    public int getTotalCount()
+    //    {
+    //        return totalCount;
+    //    }
+    //    
+    //    public void setTotalCount(int totalCount)
+    //    {
+    //        this.totalCount = totalCount;
+    //    }
+    
+    //    public String getKeywords()
+    //    {
+    //        return "".equals(keywords) ? null : keywords;
+    //    }
+    //    
+    //    public void setKeywords(String keywords)
+    //    {
+    //        this.keywords = keywords;
+    //    }
+    
+    public int getStartIndex()
+    {
+        int pageNum = this.getPageNum() > 0 ? this.getPageNum() - 1 : 0;
+        return pageNum * this.numPerPage;
+    }
+    
+    public int getNumPerPage()
+    {
+        return numPerPage > 0 ? numPerPage : PAGE_SHOW_COUNT;
+    }
+    
+    public void setNumPerPage(int numPerPage)
+    {
+        this.numPerPage = numPerPage;
+    }
+}

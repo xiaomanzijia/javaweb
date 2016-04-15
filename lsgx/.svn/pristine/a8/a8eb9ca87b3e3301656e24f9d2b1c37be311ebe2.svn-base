@@ -1,0 +1,120 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ include file="../common/common.jsp"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-cmn-Hans"  lang="zh-cmn-Hans" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+	<title>绿色共享基金会</title>
+	<link type="text/css" rel="stylesheet" href="css/public.css">
+	<link type="text/css" rel="stylesheet" href="css/layout.css">
+</head>
+
+<body>
+<header>
+	<div class="wrap-top"></div>
+	<div class="wrap-middle">
+		<header>
+			<div class="share-top">
+				<div class="share-left"><a href="javascript:void(0)"><img src="image/shared-logo.png" /></a></div>
+				<div class="share-right"><img src="image/shared-logo-prop.png" /></div>
+			</div>
+			<div class="share-nav">
+				<ul class="shnav_left">
+					<li><a class="active" href="/index.do">首页</a></li>
+					<li><a href="/aboutus.do">关于我们</a></li>
+					<li><a href="/disclosure.do">信息批露</a></li>
+					<li><a href="/welfare.do">公益项目</a></li>
+					<li><a href="/poverty.do">专项基金</a></li>
+					<li><a href="/volunteers.do">志愿者</a></li>
+				</ul>
+				<div class="shnav_contact">
+					咨询热线：0571-88900726
+				</div>
+			</div>
+		</header>
+		<section>
+			<div class="share-banner"></div>
+			<!--内容-->
+			<div class="share-main">
+				<div class="shamain-left">
+					<div class="shamabout-title">关于我们<span>ABOUT US</span></div>
+					<div class="shamabout-content">
+						<div class="about-us">
+							<div class="shabout-left"><img src="image/about-header.jpg" /></div>
+							<div class="shabout-right">
+								<p>浙江绿色共享教育基金会，由华立集团董事局主席汪力成发起和捐赠并呈报浙江省民政厅民间组织管理局批准设立的非公募基金会。浙江省教育厅是基金会的业务主管单位。</p>
+								<p>基金会的宗旨：支持国家教育事业，致力于慈善助学、特别是贫困地区的儿童和青少年教育福利事业，致力于野生动物和环境保护事业，弘扬社会正气与良知，发展社会慈善和公益事业，为国民素质的进一步提高，构建和谐社会贡献力量。</p>
+								<a class="about-btn" href="/aboutus.do">查看更多详情</a>
+							</div>
+						</div>
+						<div class="shama-donation">
+							<div class="shadona-on">在线捐款</div>
+							<div class="shadona-way">
+								<div class="shway-left">
+									<h2>银行捐款方式</h2>
+									<p>户名：浙江绿色共享教育基金会 </p>
+									<p>银行：建设银行杭州高新支行&nbsp;&nbsp;账号：3300 1616 7350 5300 7555</p>
+									<p>捐款后，请将您的信息邮件发送至：idonation@greencare.org.cn</p>
+
+
+								</div>
+								<form method="post" action="/Alipay.do">
+
+									<div class="shway-right">
+										<ul class="shway-dona">
+											<li><span>捐赠金额：</span><input class="shw_input" name="amount" type="text" value="${amount}"/>元</li>
+											<li><span>捐赠项目：</span><select name="type" class="shw_sele">
+												<option value="axzx">爱心助学</option>
+												<option value="fpjj">扶贫基金</option>
+											</select></li>
+											<p>
+												<span style="color: red">${msg}</span>
+											</p>
+											<li><input class="shw_btn" name="" type="submit" value="立即捐助"/></li>
+										</ul>
+
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="clearer"></div>
+				</div>
+				<div class="shamain-right">
+					<div class="shama-title">最新资讯</div>
+					<div class="shama-conn">
+						<ul>
+							<c:forEach items="${toplist}" var="bean">
+								<li><span><fmt:formatDate value="${bean.createtime}" pattern="MM-dd"/></span>
+									<a href="/disclosuredetails.do?id=${bean.id}">${bean.title}</a></li>
+
+							</c:forEach>
+						</ul>
+					</div>
+					<div class="shama-title">公益基金</div>
+					<div class="shama-fund">
+						<div class="shfund-img"><img src="image/share-fund.jpg" /></div>
+						<ul>
+							<li><a href="/welfare.do">绿色共享助学行动</a></li>
+							<li><a href="/welfaregarbage.do">垃圾瘦身绿色行动</a></li>
+							<li><a href="/poverty.do">致瑞扶贫基金</a></li>
+
+						</ul>
+					</div>
+				</div>
+
+			</div>
+			<!--内容-->
+		</section>
+
+		<jsp:include page="/footer.do"/>
+
+
+	</div>
+	<div class="wrap-bottom"></div>
+</header>
+</body>
+</html>
+

@@ -1,0 +1,56 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<script type="text/javascript">
+document.onkeydown=banBackSpace;
+</script>
+<div class="pageContent">
+	<form method="post" enctype="multipart/form-data" action="article/articleAdd.do" class="pageForm required-validate" rel="" onsubmit="return iframeCallback(this, dialogAjaxDone);">
+		<div class="pageFormContent" layoutH="57">
+			<div class="pageFormContent" layoutH="57">
+				<div class="unit">
+					<label style="width:50px">标题</label>
+					<input name="title" type="text" size="64" value="${article.title}" maxlength="30" class="required" remote="act_Master_validateName.html" />不超过30个字
+				</div>
+				<div class="unit">
+					<label style="width:50px">摘要</label>
+					<textarea name="description" type="text" cols="4" style="margin-left: 0px; margin-right: 0px; width: 347px;">${article.description }</textarea>
+				</div>
+				<div class="unit">
+					<label style="width:60px">是否为草稿</label>
+					<select id="valid" name="valid" >
+						<option value="0" <c:if test="${article.valid==0 }">selected="selected"</c:if>>是</option>
+						<option value="1" <c:if test="${article.valid==1 }">selected="selected"</c:if>>否</option>
+					</select>
+				</div>
+				<div class="unit">
+					<label>内容</label>
+					<textarea id="content" name="content" class="editor required" rows="16" cols="100">${newsVo.content }</textarea>
+				</div>
+			<div class="unit">
+				<label>封面图片</label>
+				<input name="cover" type="file" />
+			</div>
+
+		</div>
+		<div class="formBar">
+			<ul>
+				<li>
+					<div class="buttonActive">
+						<div class="buttonContent">
+							<button type="submit">保存</button>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="button">
+						<div class="buttonContent">
+							<button type="button" class="close">取消</button>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</form>
+</div>

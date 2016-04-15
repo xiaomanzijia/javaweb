@@ -1,0 +1,2 @@
+用自动生成的mapper.xml中，insert sql要加入以下内容，否则创建的对象不会自动生成ID
+useGeneratedKeys="true" keyProperty="id"

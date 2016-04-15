@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsgx.admin.mapper.DonateRecordMapper">
+  
+	<select id="queryByParam"  parameterType="DonateRecord" resultType="DonateRecord">
+		select 
+		    u.username, t.*
+		from
+		    (select p.title as projectTitle, r.* from donate_record r, cs_project p where r.projectid = p.id 
+			  <if test="projectId != null"> and r.projectId=#{projectId} </if>
+			  <if test="userId != null"> and r.userId=#{userId} </if>
+			  <if test="capitalinoutId != null"> and r.capitalinoutId=#{capitalinoutId} </if>
+			  <if test="projectId != null"> and r.projectId=#{projectId} </if>
+			  <if test="donorType != null and donorType != ''"> and r.donorType=#{donorType} </if>
+			  <if test="donatType != null and donatType != ''"> and r.donatType=#{donatType} </if>
+			  <if test="state != null"> and r.state=#{state} </if>
+			  
+		    ) t,
+		    frontUser u
+		<where>
+		    t.userId = u.id
+		    
+ 			<if test="id != null and id != 0">
+				and t.id = #{id}
+			</if>
+			<if test="userName != null and userName != ''">
+				and u.userName = #{userName}
+			</if>
+			<if test="startDate != null">
+				 and t.donatTime &gt;= #{startDate} 
+			</if>
+			<if test="endDate != null">
+				 and t.donatTime &lt;= #{endDate} 
+			</if>
+ 		</where>
+ 		
+ 		<choose>
+			<when test="orderField !=null and orderField !=''">
+				 order by ${orderField}  <if test="orderDirection != null and orderDirection != ''">${orderDirection}</if>
+			</when>
+			<otherwise>
+				order by t.donatTime DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="queryByDonate"  parameterType="DonateRecord" resultType="DonateRecord">
+		select *
+		from  donate_record 
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+			<if test="capitalinoutId != null and capitalinoutId != 0">
+				and capitalinoutId = #{capitalinoutId}
+			</if>
+			<if test="userId != null and userId != 0">
+				and userId = #{userId}
+			</if>
+		</where>
+		 for update
+	</select>
+	
+	<update id="update"  parameterType="DonateRecord" >
+		update donate_record
+		<set>
+			<if test="state != null and state != 0">
+				state=#{state}
+			</if>
+		</set>
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+			<if test="capitalinoutId != null and capitalinoutId != 0">
+				and capitalinoutId = #{capitalinoutId}
+			</if>
+			<if test="userId != null and userId != 0">
+				and userId = #{userId}
+			</if>
+		</where>
+	</update>
+	
+	<select id="countByParam" parameterType="DonateRecord" resultType="DonateRecord">
+		select count(*) as goodHelpCount,sum(d.donatAmount) as goodHelpAmount from donate_record d
+		<where>
+			<if test="donatType != null">
+				and d.donatType = #{donatType}
+			</if>
+			<if test="projectId != null">
+				and d.projectId = #{projectId}
+			</if>
+			<if test="userId != null">
+				and d.userId = #{userId}
+			</if>
+			<if test="state != null">
+				and d.state = #{state}
+			</if>
+		</where>	
+	</select>
+	
+	<insert id="save" parameterType="DonateRecord">
+		insert into donate_record 
+		(
+			capitalinoutId,
+			userId,
+			projectId,
+			donorType,
+			outDonor,
+			donatAmount,
+			donateCopies,
+			leaveWord,
+			state,
+			donatTime,
+			donatType,
+			companyId,
+			monthDonatId,
+			donateTog
+		)
+		values
+		(
+			#{capitalinoutId},
+			#{userId},
+			#{projectId},
+			#{donorType},
+			#{outDonor},
+			#{donatAmount},
+			#{donateCopies},
+			#{leaveWord},
+			#{state},
+			#{donatTime},
+			#{donatType},
+			#{companyId},
+			#{monthDonatId},
+			#{donateTog}
+		)
+	</insert>
+	
+</mapper>

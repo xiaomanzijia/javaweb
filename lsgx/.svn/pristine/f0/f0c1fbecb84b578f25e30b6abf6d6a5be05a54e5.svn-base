@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+        "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+    <!--payment order receive process  -->
+    <!--未支付捐款自动取消任务  -->
+    <bean id="cancelDonateSchedule" class="com.lsgx.admin.scheduling.CancelDonateSchedule"></bean>
+    <bean id="cancelDonateJob"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="cancelDonateSchedule"/>
+        <property name="targetMethod" value="exec"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="cancelDonateTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="cancelDonateJob"/>
+        <property name="cronExpression" value="0 0/1 * * * ? *"/>
+    </bean>
+    
+	<bean id="smsMessageTask" class="com.lsgx.admin.scheduling.SmsMessageTask"></bean>
+    <bean id="smsMessageJob"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="smsMessageTask"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="smsMessageTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="smsMessageJob"/>
+        <property name="cronExpression" value="0 0/1 * * * ? *"/>
+    </bean>
+    
+    <!--定时任务取消未付款的助善  -->
+    <bean id="cancelHelpGoodSchedule" class="com.lsgx.admin.scheduling.CancelHelpGoodSchedule"></bean>
+    <bean id="cancelHelpGoodTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="cancelHelpGoodSchedule"/>
+        <property name="targetMethod" value="task"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="cancelHelpGoodTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="cancelHelpGoodTask"/>
+        <property name="cronExpression" value="0 0/1 * * * ? *"/>
+    </bean>
+    
+    <!--定时任务募捐完成或到截止时间  -->
+    <bean id="confirmRateOfProjectSchedule" class="com.lsgx.admin.scheduling.ConfirmRateOfProject"></bean>
+    <bean id="confirmRateOfProjectTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="confirmRateOfProjectSchedule"/>
+        <property name="targetMethod" value="work"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="confirmRateOfProjectTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="confirmRateOfProjectTask"/>
+        <property name="cronExpression" value="0 0/1 * * * ? *"/>
+    </bean>
+    
+    <!--定时任务终止善管家手动终止的项目的助善  -->
+    <bean id="finishHelpGoodOfEndProjectSchedule" class="com.lsgx.admin.scheduling.FinishHelpGoodOfEndProject"></bean>
+    <bean id="finishHelpGoodOfEndProjectTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="finishHelpGoodOfEndProjectSchedule"/>
+        <property name="targetMethod" value="job"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="finishHelpGoodOfEndProjectTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="finishHelpGoodOfEndProjectTask"/>
+        <property name="cronExpression" value="0 0/1 * * * ? *"/>
+    </bean>
+    
+    <!--trigger config  -->
+	<!--<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="cancelDonateTrigger"/> 
+				<ref bean="smsMessageTrigger"/>  
+				<ref bean="cancelHelpGoodTrigger"/>
+				<ref bean="confirmRateOfProjectTrigger"/> 
+				<ref bean="finishHelpGoodOfEndProjectTrigger"/> 
+			</list>
+		</property>
+	</bean>-->
+    
+</beans>

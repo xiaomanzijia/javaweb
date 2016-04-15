@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+      
+<mapper namespace="com.lsgx.admin.mapper.CategoryMapper">
+
+	<!-- 保存类目信息 -->
+	<insert id="save" parameterType="Category">
+		insert into cs_type_config
+		(
+			id,
+			sort,
+			typeName,
+			typeName_e,
+			needdata,
+			model
+		)
+		values
+		(
+			#{id},
+			#{sort},
+			#{typeName},
+			#{typeName_e},
+			#{needdata},
+			#{model}
+		)
+	</insert>
+	
+	<!-- 查询类目 -->
+	<select id="queryByParam" parameterType="map" resultType="Category">
+		select * from cs_type_config
+			<where>
+				<if test="id !=null">
+				    and id=#{id}
+				</if>
+				<if test="sort != null">
+					and sort=#{sort}
+				</if>
+				<if test="typeName != null and typeName !=''">
+					and typeName like "%"#{typeName}"%"
+				</if>
+				<if test="needdata != null and needdata !=''">
+					and needdata like "%"#{needdata}"%"
+				</if>
+				<if test="model != null and model !=''">
+					and model like "%"#{model}"%"
+				</if>
+			</where>
+	</select>
+	
+	<!--通过id查询类目信息  -->
+	<select id="selectById" parameterType="int" resultType="Category">
+		select * from cs_type_config where id=#{id}
+	</select>
+	
+	<!--删除类目配置信息  -->
+	<delete id="delete" parameterType="int">
+		delete from cs_type_config where id=#{id}
+	</delete>
+	
+	<!-- 修改类目配置 -->
+	<update id="update" parameterType="Category">
+		update cs_type_config set
+		sort = #{sort},
+		typeName = #{typeName},
+		typeName_e = #{typeName_e},
+		needdata = #{needdata},
+		model = #{model}
+		where id = #{id}
+	</update>
+
+</mapper> 

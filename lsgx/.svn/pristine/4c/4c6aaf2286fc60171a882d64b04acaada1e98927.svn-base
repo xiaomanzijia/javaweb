@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lsgx.admin.mapper.ArticleQueryMapper" >
+  <!--  文章  分页查询 -->
+  <select id="queryArticleList" resultType="com.lsgx.admin.model.Article" parameterType="ArticleVO">
+    select * from article where 1=1
+    <if test="title != null"> and title like '%' #{title} '%'  </if>
+    order by id asc
+  </select>
+
+  <!-- 文章 查询总数 -->
+  <select id="queryArticleListCount" resultType="int" parameterType="com.github.pagehelper.Page">
+    select count(1) as a from article where 1=1
+    <if test="title != null"> and title like '%' #{title} '%'  </if>
+  </select>
+
+  <!-- 用户信息  查询总数 -->
+  <select id="queryTOP7ArticleList" resultType="com.lsgx.admin.model.Article" >
+    select id,title,createtime from article order by createtime desc LIMIT 5
+  </select>
+</mapper>

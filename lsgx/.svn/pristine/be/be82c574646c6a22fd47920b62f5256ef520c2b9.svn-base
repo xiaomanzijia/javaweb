@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+        
+<mapper namespace="com.lsgx.admin.mapper.SystemNotifyMapper">
+	
+	<!-- 更新数据-->
+	<update id="update" parameterType="SystemNotify">
+		update system_notify set
+		<if test="userid !=null">
+			userId = #{userid},
+		</if>
+		<if test="sender !=null and sender !=''">
+			sender = #{sender},
+		</if>
+		<if test="subject !=null and subject !=''">
+			subject = #{subject},
+		</if>
+		<if test="content !=null and content !=''">
+			content = #{content},
+		</if>
+		<if test="state !=null">
+			state = #{state},
+		</if>
+		<if test="isShow !=null">
+			isShow = #{isShow}
+		</if>
+		where id=#{id}
+	</update>
+	
+	<!-- 添加通告消息 -->
+	<insert id="notifyAdd" parameterType="com.lsgx.admin.model.SystemNotify" useGeneratedKeys="true" keyProperty="id">
+		insert into system_notify
+  		(
+  			userId,
+  			sender,
+  			subject,
+  			content,
+  			state,
+  			isShow,
+  			createTime
+  		)
+  		values
+  		(
+            #{userid},
+  			#{sender},
+  			#{subject},
+  			#{content},
+  			#{state},
+  			#{isShow},
+  			#{createTime}
+  			
+  		)  
+	</insert>
+	
+	<!-- 查询通告列表 -->
+	<select id="selectByParam"  parameterType="map" resultType="SystemNotifyVO">
+		select fu.userName ,sn.* from frontUser fu ,system_notify sn
+		<where>
+		    fu.id = sn.userId
+			<if test="userid != null">
+				and userId = #{userid}
+			</if>
+			<if test="subject != null  and subject != ''">
+				and subject like "%"#{subject}"%"
+			</if>
+			<if test="sender != null and sender != ''">
+				and sender = #{sender}
+			</if>
+			<if test="state !=null">
+				and state = #{state}
+			</if>
+			<if test="startDate != null">
+				AND createTime &gt;= #{startDate} 
+			</if>
+			<if test="endDate != null">
+				AND createTime &lt;= #{endDate} 
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryByParam"  parameterType="map" resultType="SystemNotify">
+		select * from system_notify
+		<where>
+			<if test="userid != null">
+				and userId = #{userid}
+			</if>
+			<if test="subject != null  and subject != ''">
+				and subject like "%"#{subject}"%"
+			</if>
+			<if test="content != null  and content != ''">
+				and content like "%"#{content}"%"
+			</if>
+			<if test="sender != null and sender != ''">
+				and sender = #{sender}
+			</if>
+			<if test="state !=null">
+				and state = #{state}
+			</if>
+			<if test="isShow !=null">
+				and isShow = #{isShow}
+			</if>
+			<if test="startDate != null">
+				AND createTime &gt;= #{startDate} 
+			</if>
+			<if test="endDate != null">
+				AND createTime &lt;= #{endDate} 
+			</if>
+		</where>
+	</select>
+	
+	<!-- 通过id查询数据 -->
+	<select id="queryById" parameterType="int" resultType="SystemNotify">
+		select * from system_notify where id=#{id}
+	</select>
+
+
+</mapper>        

@@ -1,0 +1,10 @@
+package com.lsgx.admin.constants;
+
+/**
+ * Created by lin on 2015/11/14.
+ */
+public class SystemConstants {
+    public static final String Img_real_path = "http://121.41.39.84:8080/images/upload/picture/parkProgramDetail/";
+    public static final String Img_dic = "/upload/picture/parkProgramDetail/";
+    public static final String HOST = "121.41.39.84:8080";
+}

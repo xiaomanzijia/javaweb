@@ -1,0 +1,386 @@
+package com.lsgx.admin.controller.news;
+
+import com.github.pagehelper.PageInfo;
+import com.lsgx.admin.annotation.ActionLog;
+import com.lsgx.admin.annotation.Anonymous;
+import com.lsgx.admin.constants.SystemConstants;
+import com.lsgx.admin.controller.BaseController;
+import com.lsgx.admin.model.*;
+import com.lsgx.admin.model.vo.ArticleVO;
+import com.lsgx.admin.model.vo.BFileVO;
+import com.lsgx.admin.model.vo.UserTestVO;
+import com.lsgx.admin.service.ArticleService;
+import com.lsgx.admin.service.BFileService;
+import com.lsgx.admin.service.ConfigService;
+import com.lsgx.admin.service.UserTestService;
+import com.lsgx.admin.util.ActionUtil;
+import com.lsgx.admin.util.ImageTool;
+import com.lsgx.admin.util.JsonUtil;
+import com.lsgx.admin.util.StringUtil;
+import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
+import java.util.List;
+
+/**
+ *  文章对应的控制器
+ * @author dell
+ */
+@Controller
+public class ArticleController extends BaseController{
+	
+	@Autowired
+	private ArticleService articleService;
+
+    @Autowired
+    private ConfigService configService;
+
+    @Autowired
+    private BFileService bFileService;
+
+
+
+
+	/**
+	 *  用户列表信息查询  post
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/article/showArticleList.do")
+    @ActionLog(content = "查询Article列表")
+    public String articleList(HttpServletRequest req,ArticleVO vo,
+			ModelMap model){
+        /**
+         * 这里防止页面在重新加载的时候多次传递category ，导致category的值变成 project,project 导致编辑后的查询列表无数据
+         */
+        String category = req.getParameter("category");
+        vo.setCategory(category);
+		//调用sql查询方法
+        List<ArticleVO> articleList = articleService.queryArticleList(vo);
+        PageInfo<ArticleVO> page = new PageInfo<ArticleVO>(articleList);
+		model.put("page", page);
+        model.put("articleList", articleList);
+        model.put("article", vo);
+        saveLogDetail(null);
+
+        model.put("category", category);
+//        System.out.println("req.getParameter(\"category\") = " + category);
+//        System.out.println("vo.getCategory() = " + vo.getCategory());
+//        System.out.println("model.get(\"category\") = " + model.get("category"));
+        return "article/ArticleList";
+		
+	}
+
+    /**
+     *  添加 get
+     * @param req
+     * @param resp
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/article/ArticleAddGET.do", method = RequestMethod.GET)
+    public String articleAddget(HttpServletRequest req, HttpServletResponse resp,
+                                   ModelMap model){
+
+        model.put("category", req.getParameter("category"));
+        return "article/ArticleAdd";
+    }
+
+    /**
+     * 保存文章
+     * @param article
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/article/articleAdd.do")
+    @ResponseBody
+    @ActionLog(content = "保存文章")
+    public String articleAddPost(Article article, @RequestParam("cover") MultipartFile file,
+                                  ModelMap model){
+
+        if(article.getCreatetime()==null){
+            article.setCreatetime(new Date());
+        }
+
+        if (file!=null&&file.getSize()>0) {
+            // 得到上传服务器的路径
+            Config config = new Config();
+            config.setConfigKey("fileBasicURL");
+            String fileBasicURL = configService.queryByParam(config).get(0).getConfigValue();
+            if(StringUtil.isEmpty(fileBasicURL)){
+                return JsonUtil.toJSONString(ActionUtil.getAjaxToMap("300", "faild for fileBasicURL is null", "manage_img", "", "closeCurrent", ""));
+            }
+//            String realPath = request.getSession().getServletContext().getRealPath("/upload/picture/parkProgramDetail/");//项目绝对路径
+            String realPath = fileBasicURL + SystemConstants.Img_dic;
+            if (ImageTool.isImageAllowType(file.getOriginalFilename()))//刷选格式
+            {
+                if (file.getSize() > 2 * 1024 * 1024)//文件大小2M
+                {
+                    return JsonUtil.toJSONString(ActionUtil.getAjaxToMap("300", "faild for fileSize big than 500KB", "manage_img", "", "closeCurrent", ""));
+                }
+                else
+                {
+                    String newFileName = ImageTool.upload(file, realPath);//图片上传--返回上传成功后图片的新名字（包括后缀）
+                    System.out.println("newFileName = " + newFileName);
+                    if(StringUtil.isNotEmpty(newFileName)){//不为空代表上传成功
+                        BFile bFile = new BFile();
+                        bFile.setCategory("article");
+                        bFile.setFileType("picture");
+                        bFile.setUrl(newFileName);
+                        int result = bFileService.save(bFile);
+                        if (result > 0) {
+                            article.setFileId(bFile.getId());
+
+
+                            // model.put("userTest", usertest);
+
+                        }
+                    }
+                }
+            }else{
+                return JsonUtil.toJSONString(ActionUtil.getAjaxToMap("300", "faild for errorType", "articleList", "", "closeCurrent", ""));
+            }
+        }
+        articleService.insert(article);
+            return JsonUtil.toJSONString(ActionUtil.getAjaxToMap("200", "save success", "articleList", "", "closeCurrent", ""));
+
+
+
+
+    }
+
+
+    /**
+     *  跳转修改页面
+     * @param req
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/article/articleEditGET.do")
+    @ActionLog(content = "test")
+    public String articleEditGET(Article article, HttpServletRequest req,
+                                    ModelMap model) {
+        System.out.println("进入articleEditGET.do");
+        if (article != null && article.getId() != null)
+        {
+            Article dbArticle = articleService.selectByPrimaryKey(article.getId());
+            if(dbArticle.getFileId()!=null){
+               BFile file= bFileService.queryById(dbArticle.getFileId());
+                if (file!=null) {
+                    BFileVO fileVO=new BFileVO();
+
+                    try {
+                        BeanUtils.copyProperties(fileVO,file);
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
+                    fileVO.setImg_path(SystemConstants.Img_real_path+fileVO.getUrl());
+                    model.put("fileVO", fileVO);
+                }
+            }
+            model.put("article", dbArticle);
+
+        }
+        return "article/ArticleEdit";
+
+    }
+
+
+    /**
+     *  跳转修改页面
+     * @param req
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/article/articleDetail.do")
+    public String articleDetail(Article article, HttpServletRequest req,
+                                    ModelMap model) {
+        if (article != null && article.getId() != null)
+        {
+
+            Article dbArticle = articleService.selectByPrimaryKey(article.getId());
+            if(dbArticle.getFileId()!=null){
+               BFile file= bFileService.queryById(dbArticle.getFileId());
+                if (file!=null) {
+                    BFileVO fileVO=new BFileVO();
+
+                    try {
+                        BeanUtils.copyProperties(fileVO,file);
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
+                    fileVO.setImg_path(SystemConstants.Img_real_path+fileVO.getUrl());
+                    model.put("fileVO", fileVO);
+                }
+            }
+            model.put("article", dbArticle);
+
+        }
+        return "article/ArticleDetail";
+
+    }
+
+
+
+
+    /**
+     * 用户信息修改保存
+     * @param article
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/article/articleEdit.do")
+    @ResponseBody
+    @ActionLog(content = "修改文章")
+    public String articleEditPost(Article article, @RequestParam("cover") MultipartFile file,
+                                     ModelMap model){
+        if(article.getCreatetime()==null){
+            article.setCreatetime(new Date());
+        }
+
+       if (file!=null&&file.getSize()>0) {
+            // 得到上传服务器的路径
+            Config config = new Config();
+            config.setConfigKey("fileBasicURL");
+            String fileBasicURL = configService.queryByParam(config).get(0).getConfigValue();
+            if(StringUtil.isEmpty(fileBasicURL)){
+                return JsonUtil.toJSONString(ActionUtil.getAjaxToMap("300", "faild for fileBasicURL is null", "manage_img", "", "closeCurrent", ""));
+            }
+//            String realPath = request.getSession().getServletContext().getRealPath("/upload/picture/parkProgramDetail/");//项目绝对路径
+            String realPath = fileBasicURL +SystemConstants.Img_dic ;
+            if (ImageTool.isImageAllowType(file.getOriginalFilename()))//刷选格式
+            {
+                if (file.getSize() > 500 * 1024)//文件大小2M
+                {
+                    return JsonUtil.toJSONString(ActionUtil.getAjaxToMap("300", "faild for fileSize big than 500KB", "manage_img", "", "closeCurrent", ""));
+                }
+                else
+                {
+                    String newFileName = ImageTool.upload(file, realPath);//图片上传--返回上传成功后图片的新名字（包括后缀）
+                    if(StringUtil.isNotEmpty(newFileName)){//不为空代表上传成功
+                        BFile bFile = new BFile();
+                        bFile.setCategory("article");
+                        bFile.setFileType("picture");
+                        bFile.setUrl(newFileName);
+                        int result = bFileService.save(bFile);
+                        //删除原来的图片
+                        if (article.getFileId()!=null) {
+                            BFile dbBfile=   bFileService.queryById(article.getFileId());
+                            String path = fileBasicURL + SystemConstants.Img_dic + dbBfile.getUrl();
+
+                            ImageTool.deletePicture(path);
+                        }
+                        if (result > 0) {
+                            article.setFileId(bFile.getId());
+
+                            // model.put("userTest", usertest);
+
+                        }
+                    }
+                }
+            }else{
+                return JsonUtil.toJSONString(ActionUtil.getAjaxToMap("300", "faild for errorType", "articleList", "", "closeCurrent", ""));
+            }
+        }
+        //日期格式不能通过页面传递参数
+        Article dbArticle1=articleService.selectByPrimaryKey(article.getId());
+        article.setCreatetime(dbArticle1.getCreatetime());
+
+        articleService.updateByPrimaryKeyWithBLOBs(article);
+        return JsonUtil.toJSONString(ActionUtil.getAjaxToMap("200", "edit success", "articleList", "", "closeCurrent", ""));
+
+    }
+
+
+    /**
+     * 用户信息删除
+     * @param req
+     * @param resp
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/article/articleDelete.do", method = RequestMethod.POST)
+    @ResponseBody
+    @ActionLog(content = "删除文章")
+    public String actionUserDeletePost(HttpServletRequest req, HttpServletResponse resp,
+                                       ModelMap model){
+        String id = req.getParameter("id");
+        Article article = articleService.selectByPrimaryKey(Integer.parseInt(id));
+        String category=article.getCategory();
+        if (article!=null) {
+            saveLogDetail("删除文章标题：" + article.getTitle());
+            //删除用户信息
+            articleService.deleteByPrimaryKey(Integer.parseInt(id));
+        }else{
+            return JsonUtil.toJSONString(ActionUtil.getAjaxToMap("300", "error,id:"+id+" can't find article", "articleList", "", "closeCurrent", ""));
+
+        }
+
+        return JsonUtil.toJSONString(ActionUtil.getAjaxToMap("200", "delete success", "articleList", "", "forward", "/article/showArticleList.do?category="+category));
+    }
+
+
+    /**
+     * 文章发布
+     * @param req
+     * @param resp
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/article/articleRelease.do", method = RequestMethod.POST)
+    @ResponseBody
+    @ActionLog(content = "文章发布")
+    public String articleRelease(HttpServletRequest req, HttpServletResponse resp,
+                                       ModelMap model){
+        String id = req.getParameter("id");
+        Article article = articleService.selectByPrimaryKey(Integer.parseInt(id));
+        article.setValid(1);
+        article.setId(Integer.parseInt(id));
+        ArticleExample ae=new ArticleExample();
+        ae.createCriteria().andIdEqualTo(Integer.parseInt(id));
+
+        articleService.updateByExampleSelective(article,ae);
+        return JsonUtil.toJSONString(ActionUtil.getAjaxToMap("200", "release success", "articleList", "", "forward", "/article/showArticleList.do"));
+    }
+
+    /**
+     * 文章发布
+     * @param req
+     * @param resp
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/article/articleUnRelease.do", method = RequestMethod.POST)
+    @ResponseBody
+    @ActionLog(content = "文章取消发布")
+    public String articleUnRelease(HttpServletRequest req, HttpServletResponse resp,
+                                       ModelMap model){
+        String id = req.getParameter("id");
+        Article article = articleService.selectByPrimaryKey(Integer.parseInt(id));
+        article.setValid(0);
+        article.setId(Integer.parseInt(id));
+        ArticleExample ae=new ArticleExample();
+        ae.createCriteria().andIdEqualTo(Integer.parseInt(id));
+        articleService.updateByExampleSelective(article, ae);
+        return JsonUtil.toJSONString(ActionUtil.getAjaxToMap("200", "release success", "articleList", "", "forward", "/article/showArticleList.do"));
+    }
+
+
+
+	
+}

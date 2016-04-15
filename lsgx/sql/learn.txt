@@ -1,0 +1,9 @@
+https://doc.open.alipay.com/doc2/alipayDocIndex.htm
+支付宝文档下载，选择即时到账
+
+
+
+todo
+----------------
+1:支付金额的js校验
+2：后台登陆的ip地址设定

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lsgx.admin.mapper.ProjectMapper">
+ 	
+	
+	 <select id="select" resultType="Project" parameterType="map">
+ 		select * from cs_project
+ 		
+ 		<where>
+ 			1=1
+ 			<if test="id != null">
+				and id=#{id}
+			</if>
+ 			<if test="field != null and field != ''">
+				and field like "%"#{field}"%"
+			</if>
+			<if test="type != null  and type != ''">
+				and type like "%"#{type}"%"
+			</if>
+			<if test="title != null and title != ''">
+				and title like "%"#{title}"%"
+			</if>
+			<if test="content != null and content != ''">
+				and content like "%"#{content}"%"
+			</if>
+			<if test="information != null and information != ''">
+				and information like "%"#{information}"%"
+			</if>
+			<if test="cryCause != null and cryCause != ''">
+				and cryCause like "%"#{cryCause}"%"
+			</if>
+			<if test="state != null">
+				and state=#{state}
+			</if>
+			<if test="startDate != null">
+				AND deadline &gt;= #{startDate} 
+			</if>
+			<if test="endDate != null">
+				AND deadline &lt;= #{endDate} 
+			</if>
+			
+ 		</where>
+ 		
+		<choose>
+			<when test="orderField !=null and orderField !=''">
+				 order by  ${orderField} 
+				 <if test="orderDirection != null and orderDirection != ''">${orderDirection}</if>
+			</when>
+			<otherwise>
+				 order by id DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="queryByLock"  resultType="Project"  parameterType="Integer">
+		select * from cs_project 
+		<where>
+		 id=#{id} 
+		</where>
+		for update
+	</select>
+	
+	<update id="update" parameterType="Project">
+		update cs_project
+		<set>
+			<if test="donatAmount != null">
+				donatAmount = #{donatAmount},
+			</if>
+			<if test="state != null">
+				state = #{state},
+			</if>
+			<if test="panyAmount != null">
+				panyAmount = #{panyAmount},
+			</if>
+			<if test="lastUpdateTime != null">
+				lastUpdateTime = #{lastUpdateTime},
+			</if>
+			<if test="contentImageId != null and contentImageId !=''">
+				contentImageId = #{contentImageId},
+			</if>
+			<if test="coverImageId  != null and coverImageId !=0">
+				coverImageId = #{coverImageId},
+			</if>
+			<if test="field  != null and field !=''">
+				field = #{field},
+			</if>
+			<if test="title  != null and title !=''">
+				title = #{title},
+			</if>
+			<if test="subTitle  != null and subTitle !=''">
+				subTitle = #{subTitle},
+			</if>
+			<if test="content  != null and content !=''">
+				content = #{content},
+			</if>
+			<if test="totalCopies  != null and totalCopies !=0">
+				totalCopies = #{totalCopies},
+			</if>
+			<if test="deadline  != null">
+				deadline = #{deadline},
+			</if>
+			<if test="accountName  != null and accountName !=''">
+				accountName = #{accountName},
+			</if>
+			<if test="accountBank  != null and accountBank !=''">
+				accountBank = #{accountBank},
+			</if>
+			<if test="collectNum  != null and collectNum !=''">
+				collectNum = #{collectNum},
+			</if>
+			<if test="leaveCopies  != null and leaveCopies !=0">
+				leaveCopies = #{leaveCopies},
+			</if>
+			<if test="cryMoney  != null and cryMoney !=0">
+				cryMoney = #{cryMoney},
+			</if>
+			<if test="information  != null and information !=''">
+				information = #{information},
+			</if>
+			<if test="cryCause  != null and cryCause !=''">
+				cryCause = #{cryCause},
+			</if>
+			<if test="isHide != null">
+				isHide = #{isHide},
+			</if>
+		</set>
+		<where>
+			id = #{id}
+		</where>
+	</update>
+	
+	<select id="queryById"  resultType="Project"  parameterType="Integer">
+		select * from cs_project where id=#{id}
+	</select>
+	
+	<insert id="save" parameterType="Project"  useGeneratedKeys="true"  keyProperty="id">
+		
+		insert  into cs_project
+		(
+			userId,
+			field,
+			type,
+			title,
+			subTitle,
+			content,
+			contentImageId,
+			coverImageId,
+			location,
+			detailAddress,
+			cryMoney,
+			identity,
+			totalCopies,
+			leaveCopies,
+			information,
+			payMethod,
+			accountName,
+			accountBank,
+			collectNum,
+			head,
+			state,
+			deadline,
+			lastUpdateTime,
+			cryCause,
+			isHide
+		)
+		values
+		(
+			#{userId},
+			#{field},
+			#{type},
+			#{title},
+			#{subTitle},
+			#{content},
+			#{contentImageId},
+			#{coverImageId},
+			#{location},
+			#{detailAddress},
+			#{cryMoney},
+			#{identity},
+			#{totalCopies},
+			#{leaveCopies},
+			#{information},
+			#{payMethod},
+			#{accountName},
+			#{accountBank},
+			#{collectNum},
+			#{head},
+			#{state},
+			#{deadline},
+			#{lastUpdateTime},
+			#{cryCause},
+			#{isHide}
+		)
+		
+	</insert>
+	<!-- 查询已募捐完成或到截止时间的项目 -->
+	<select id="selectOutofDeadline" resultType="Project">
+		select  * from cs_project  where (state = 240 or state=260)and (cryMoney = donatAmount
+		or TIMESTAMPDIFF ( MINUTE  ,deadline  ,now()) > 0) for update
+	</select>
+	
+	<!-- 查询已被提前终止的项目 -->
+	<select id="selectEndProject" resultType="Project">
+		select  * from cs_project  where state = 260 and cryMoney > donatAmount
+	</select>
+</mapper>

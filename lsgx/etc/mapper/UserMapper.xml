@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lsgx.admin.mapper.UserMapper">
+	<insert id="saveFrontUser" parameterType="FrontUser"  useGeneratedKeys="true" keyProperty="id">
+		insert into frontUser
+		(
+			userType,
+			userName,
+			userPass,
+			nickName,
+			realState,
+			registrTime,
+			realName,
+			idCard,
+			mobileNum,
+			lastAutoTime,
+			useState,
+			lastLoginTime,
+			mobileState,
+			loveGroupMent,
+			companyId,
+			registrSoure,
+			extensionPeople,
+			fieldExpert,
+			description,
+			regUsersType
+		)
+		values
+		(
+			#{userType},
+			#{userName},
+			#{userPass},
+			#{nickName},
+			#{realState},
+			#{registrTime},
+			#{realName},
+			#{idCard},
+			#{mobileNum},
+			#{lastAutoTime},
+			#{useState},
+			#{lastLoginTime},
+			#{mobileState},
+			#{loveGroupMent},
+			#{companyId},
+			#{registrSoure},
+			#{extensionPeople},
+			#{fieldExpert},
+			#{description},
+			#{regUsersType}
+		)
+	</insert>
+	
+ 	<update id="update"  parameterType="FrontUser">
+ 		update frontUser 
+ 		<set>
+ 			<if test="realState != null">
+		 		realState = #{realState},
+ 			</if>
+ 			<if test="loveGroupMent != null">
+		 		loveGroupMent = #{loveGroupMent},
+ 			</if>
+ 			<if test="loveState != null">	
+ 				loveState= #{loveState},
+ 			</if>
+ 			<if test="availableBalance != null">	
+ 				availableBalance= #{availableBalance},
+ 			</if>
+ 			<if test="balance != null">	
+ 				balance= #{balance},
+ 			</if>
+ 			<if test="companyId != null">	
+ 				companyId= #{companyId},
+ 			</if>
+ 			<if test="mobileState != null">	
+ 				mobileState= #{mobileState},
+ 			</if>
+ 		</set>
+ 		<where>
+ 			id = #{id}
+ 		</where>
+ 	</update>
+ 	
+ 	<select id="findAll" resultType="FrontUser">
+ 		select * from frontUser
+	</select>
+	
+	 <select id="findByCondition" resultType="FrontUser" parameterType="map">
+ 		select * from frontUser
+ 		
+ 		<where>
+ 			<if test="userName != null and userName != ''">
+				and username like "%"#{userName}"%"
+			</if>
+			<if test="realName != null and realName != ''">
+				and realName like "%"#{realName}"%"
+			</if>
+			<if test="userType != null  and userType != ''">
+				and userType =#{userType}
+			</if>
+			<if test="loveGroupMent != null ">
+				and loveGroupMent=#{loveGroupMent}
+			</if>
+			<if test="realState != null ">
+				and realState =#{realState}
+			</if>
+			<if test="loveState != null ">
+				and loveState =#{loveState}
+			</if>
+			<if test="useState != null ">
+				and useState =#{useState}
+			</if>
+			<if test="startDate != null ">
+				 AND registrTime &gt;= #{startDate} 
+			</if>
+			<if test="endDate != null">
+				 AND registrTime &lt;= #{endDate} 
+			</if>
+			
+ 		</where>
+ 		
+		<choose>
+			<when test="orderField !=null and orderField !=''">
+				 order by  ${orderField} 
+				 <if test="orderDirection != null and orderDirection != ''">${orderDirection}</if>
+			</when>
+			<otherwise>
+				 order by id DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="queryByLock" resultType="FrontUser" parameterType="Integer">
+			select * from frontUser where id = #{0} for update
+	</select>
+	
+	<select id="queryById"  resultType="FrontUser"  parameterType="Integer">
+		select * from frontUser where id=#{id}
+	</select>
+	
+	<select id="getUserByUserName"  resultType="FrontUser"  parameterType="String">
+			select * from frontUser where userName=#{userName}
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete from frontUser where id=#{id}
+	</delete>
+</mapper>

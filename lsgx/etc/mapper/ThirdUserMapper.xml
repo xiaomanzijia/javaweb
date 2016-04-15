@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsgx.admin.mapper.ThirdUserMapper">
+
+	<select id = "queryByParam"  parameterType="map" resultType="ThirdUser">
+		select *  from  thirdUser  
+			<where>
+				<if test="type != null">
+				 	and type = #{type}
+				</if>
+				
+				<if test="userId != null">
+				 	and userId = #{userId}
+				</if>
+				
+				<if test="accountNum != null and accountNum !=''">
+				 	and accountNum = #{accountNum}
+				</if>
+			</where>
+			<choose>
+				<when test="orderField !=null and orderField !=''">
+					 order by  ${orderField} 
+					 <if test="orderDirection != null and orderDirection != ''">${orderDirection}</if>
+				</when>
+				<otherwise>
+					 order by id DESC
+				</otherwise>
+			</choose>
+		</select>
+</mapper>

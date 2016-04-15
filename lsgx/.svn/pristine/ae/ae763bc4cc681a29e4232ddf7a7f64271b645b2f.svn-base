@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.2.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+	<aop:aspectj-autoproxy/>
+
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+	
+	<bean id="defaultDataSorce" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${db.driver}"/>
+        <property name="jdbcUrl" value="${db.url}"/>
+        <property name="user" value="${db.user}" />
+        <property name="password" value="${db.password}"/>
+        <property name="acquireIncrement" value="3" />
+        <property name="minPoolSize" value="1"/>
+        <property name="maxPoolSize" value="20"/>
+        
+        <!--初始化时获取三个连接，取值应在minPoolSize与maxPoolSize之间。Default: 3 --> 
+        <property name="initialPoolSize" value="3" />
+        
+        <!-- 连接池在获得新连接失败时重试的次数，如果小于等于0则无限重试直至连接获得成功 -->
+        <property name="acquireRetryAttempts" value="0" />
+        
+        <!-- 配置PreparedStatement最大缓存数量 -->
+        <property name="maxStatementsPerConnection" value="20" />
+        <property name="numHelperThreads" value="3" />
+        <property name="preferredTestQuery" value="select 1" />
+        
+        <!-- 
+        这个配置主要是为了减轻连接池的负载，比如连接池中连接数因为某次数据访问高峰导致创建了很多数据连接
+		但是后面的时间段需要的数据库连接数很少，则此时连接池完全没有必要维护那么多的连接，所以有必要将
+		断开丢弃掉一些连接来减轻负载，必须小于maxIdleTime。配置不为0，则会将连接池中的连接数量保持到minPoolSize。
+		为0则不处理 
+		-->
+        <property name="maxIdleTimeExcessConnections" value="5" />
+        
+        <!--每60秒检查所有连接池中的空闲连接。Default: 0 --> 
+		<property name="idleConnectionTestPeriod" value="60" /> 
+	</bean>
+	
+	<bean id="defaultTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="defaultDataSorce" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="defaultTransactionManager" proxy-target-class="true"/>
+
+    <aop:config>
+		<aop:pointcut id="allServiceMethods" expression="execution(* com.lsgx.*.*.service.*.*(..))" />
+		<aop:advisor advice-ref="defaultTransactionAdvice" pointcut-ref="allServiceMethods" />
+	</aop:config>
+	
+	<tx:advice id="defaultTransactionAdvice" transaction-manager="defaultTransactionManager">
+		<tx:attributes>
+			<tx:method name="create*" propagation="REQUIRED" rollback-for="Exception" isolation="DEFAULT"/>
+			<tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception" isolation="DEFAULT"/>
+			<tx:method name="add*" propagation="REQUIRED" rollback-for="Exception" isolation="DEFAULT"/>
+			<tx:method name="save*" propagation="REQUIRED" rollback-for="java.lang.Exception" isolation="DEFAULT"/>
+			<tx:method name="modify*" propagation="REQUIRED" rollback-for="Exception" isolation="DEFAULT"/>
+			<tx:method name="update*" propagation="REQUIRED" rollback-for="Exception" isolation="DEFAULT"/>
+			<tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception" isolation="DEFAULT"/>
+			<tx:method name="remove*" propagation="REQUIRED" rollback-for="Exception" isolation="DEFAULT"/>
+			<tx:method name="find*" propagation="SUPPORTS" read-only="true" isolation="READ_UNCOMMITTED"/>
+			<tx:method name="query*" propagation="SUPPORTS" read-only="true" isolation="READ_UNCOMMITTED"/>
+			<!--<tx:method name="*" propagation="REQUIRED" read-only="true"/>-->
+		</tx:attributes>
+	</tx:advice>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="defaultDataSorce" />
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+  		<property name="mapperLocations" value="classpath:mapper/*.xml" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.lsgx.admin.mapper" />
+	</bean>
+    
+</beans>

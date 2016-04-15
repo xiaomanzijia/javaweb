@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+  <mapper namespace="com.lsgx.admin.mapper.NewsMapper">
+  		<!-- 查询公告列表 -->
+  		<select id="selectByParam" parameterType="map" resultType="NewsVO">
+  			select *
+  			from news
+  			<where>
+  			 	news_column = "公告"
+  				<if test="id != null">
+  				   and id=#{id}
+  				</if>
+  				<if test="title != null and title != ''">
+  				   and title like "%"#{title}"%"	
+  				</if>
+  				<if test="abstracts != null and abstracts != ''">
+  				   and abstracts like "%"#{abstracts}"%"	
+  				</if>
+  				<if test="keywords != null and keywords != ''">
+  				   and keywords like "%"#{keywords}"%"	
+  				</if>
+  				<if test="startDate != null">
+				   and createtime &gt;= #{startDate} 
+			    </if>
+			    <if test="endDate != null">
+				   and createtime &lt;= #{endDate} 
+			    </if>
+  			</where>
+  			order by top desc,ordertime desc
+  		</select>
+  		
+  		<!-- 查询爱心故事列表 -->
+  		<select id="selectLoveStoryByParam" parameterType="map" resultType="NewsVO">
+  			select *
+  			from news
+  			<where>
+  				news_column = "爱心故事"
+  				<if test="id != null">
+  				   and id=#{id}
+  				</if>
+  				<if test="title != null and title != ''">
+  				   and title like "%"#{title}"%"	
+  				</if>
+  				<if test="abstracts != null and abstracts != ''">
+  				   and abstracts like "%"#{abstracts}"%"	
+  				</if>
+  				<if test="keywords != null and keywords != ''">
+  				   and keywords like "%"#{keywords}"%"	
+  				</if>
+  				<if test="startDate != null">
+				   and createtime &gt;= #{startDate} 
+			    </if>
+			    <if test="endDate != null">
+				   and createtime &lt;= #{endDate} 
+			    </if>
+  			</where>
+  			order by top desc,ordertime desc
+  		</select>
+  		<!-- 查询爱心故事助学列表 -->
+  		<select id="selectHelpStudyByParam" parameterType="map" resultType="NewsVO">
+  			select *
+  			from news
+  			<where>
+  				news_column = "爱心故事" and sub_column = "助学"
+  				<if test="id != null">
+  				   and id=#{id}
+  				</if>
+  				<if test="title != null and title != ''">
+  				   and title like "%"#{title}"%"	
+  				</if>
+  				<if test="abstracts != null and abstracts != ''">
+  				   and abstracts like "%"#{abstracts}"%"	
+  				</if>
+  				<if test="keywords != null and keywords != ''">
+  				   and keywords like "%"#{keywords}"%"	
+  				</if>
+  				<if test="startDate != null">
+				   and createtime &gt;= #{startDate} 
+			    </if>
+			    <if test="endDate != null">
+				   and createtime &lt;= #{endDate} 
+			    </if>
+  			</where>
+  			order by top desc,ordertime desc
+  		</select>
+  		<!-- 查询爱心故事助学建学校列表 -->
+  		<select id="selectHelpStudyBuildSchoolByParam" parameterType="map" resultType="NewsVO">
+  			select *
+  			from news
+  			<where>
+  				news_column = "爱心故事" and sub_column = "助学" and third_column="建学校"
+  				<if test="id != null">
+  				   and id=#{id}
+  				</if>
+  				<if test="title != null and title != ''">
+  				   and title like "%"#{title}"%"	
+  				</if>
+  				<if test="abstracts != null and abstracts != ''">
+  				   and abstracts like "%"#{abstracts}"%"	
+  				</if>
+  				<if test="keywords != null and keywords != ''">
+  				   and keywords like "%"#{keywords}"%"	
+  				</if>
+  				<if test="startDate != null">
+				   and createtime &gt;= #{startDate} 
+			    </if>
+			    <if test="endDate != null">
+				   and createtime &lt;= #{endDate} 
+			    </if>
+  			</where>
+  			order by top desc,ordertime desc
+  		</select>
+  		<!-- 查询爱心故事疾病列表 -->
+  		<select id="selectDiseaseByParam" parameterType="map" resultType="NewsVO">
+  			select *
+  			from news
+  			<where>
+  				news_column = "爱心故事" and sub_column = "疾病"
+  				<if test="id != null">
+  				   and id=#{id}
+  				</if>
+  				<if test="title != null and title != ''">
+  				   and title like "%"#{title}"%"	
+  				</if>
+  				<if test="abstracts != null and abstracts != ''">
+  				   and abstracts like "%"#{abstracts}"%"	
+  				</if>
+  				<if test="keywords != null and keywords != ''">
+  				   and keywords like "%"#{keywords}"%"	
+  				</if>
+  				<if test="startDate != null">
+				   and createtime &gt;= #{startDate} 
+			    </if>
+			    <if test="endDate != null">
+				   and createtime &lt;= #{endDate} 
+			    </if>
+  			</where>
+  			order by top desc,ordertime desc
+  		</select>
+  		<!-- 通过id查询单条新闻消息 -->
+  		<select id="selectById" parameterType="int" resultType="NewsVO">
+  		   select *  
+  		   from news
+  		   where id=#{id}
+  		</select>
+     <!-- 添加新闻消息 -->
+      <insert id="addNews" parameterType="com.lsgx.admin.model.News" useGeneratedKeys="true" keyProperty="id">
+          insert into news
+  		(
+  			title,
+  			abstracts,
+  			keywords,
+  			content,
+  			createtime,
+  			top,
+  			news_column,
+  			sub_column,
+  			third_column,
+  			source,
+  			ordertime,
+  			type
+  		)
+  		values
+  		(
+            #{title},
+  			#{abstracts},
+  			#{keywords},
+  			#{content},
+  			#{createTime},
+  			#{top},
+  			#{news_column},
+  			#{sub_column},
+  			#{third_column},
+  			#{source},
+  			#{orderTime},
+  			#{type}
+  		)
+      </insert>
+     <!-- 删除新闻 -->
+     <delete id="deleteNews" parameterType="int">
+        delete from news where id=#{id}
+     </delete>
+     <update id="editNews" parameterType="com.lsgx.admin.model.vo.NewsVO">
+        update news set
+           title=#{title},
+           abstracts=#{abstracts},
+           keywords=#{keywords},
+  		   content=#{content},
+  		   createtime=#{createTime},
+  		   top=#{top},
+  		   news_column=#{news_column},
+  		   sub_column=#{sub_column},
+  		   third_column=#{third_column},
+  		   source=#{source},
+  		   ordertime=#{orderTime},
+  		   type=#{type}
+           where id=#{id}
+     </update>
+  
+  
+  </mapper>      

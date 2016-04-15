@@ -1,0 +1,48 @@
+package com.lsgx.admin.model.vo;
+
+import com.lsgx.admin.model.Testname;
+
+
+public class NameTestVO extends Testname
+{
+    private Integer id;
+
+    private String name;
+    public final static int PAGE_SHOW_COUNT = 20;
+
+    private int pageNum = 1;
+
+    private int numPerPage = 0;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public int getNumPerPage()
+    {
+        return numPerPage > 0 ? numPerPage : PAGE_SHOW_COUNT;
+    }
+
+    public void setNumPerPage(int numPerPage) {
+        this.numPerPage = numPerPage;
+    }
+}

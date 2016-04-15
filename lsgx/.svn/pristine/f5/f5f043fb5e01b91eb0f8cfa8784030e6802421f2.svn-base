@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+<title>绿色共享基金会</title>
+<link type="text/css" rel="stylesheet" href="css/public.css">
+<link type="text/css" rel="stylesheet" href="css/layout.css">
+</head>
+
+<body>
+<header>
+	<div class="wrap-top"></div>
+    <div class="wrap-middle">
+    	<header>
+        	<div class="share-top">
+            	<div class="share-left"><a href="javascript:void(0)"><img src="image/shared-logo.png" /></a></div>
+                <div class="share-right"><img src="image/shared-logo-prop.png" /></div>
+            </div>
+            <div class="share-nav">
+            	<ul class="shnav_left">
+                	<li><a href="index.html">首页</a></li>
+                    <li><a href="about-introduc.html">关于我们</a></li>
+                    <li><a class="active" href="disclosure-dynamic.html">信息批露</a></li>
+                    <li><a href="welfare-green.html">公益项目</a></li>
+                    <li><a href="special-Poverty.html">专项基金</a></li>
+                    <li><a href="volunteers-join.html">志愿者</a></li>
+                </ul>
+                <div class="shnav_contact">
+                咨询热线：0571-88900726
+                </div>
+            </div>
+        </header>
+    	<section>
+        	<div class="about-intro-main">
+            	<div class="about-intro-left">
+                	<div class="intleft-title">信息披露</div>
+                    <div class="intleft-conn">
+                    	<ul>
+                        	<li><a class="active" href="disclosure-dynamic.html">项目动态</a></li>
+                            <li><a href="disclosure-media.html">媒体报道</a></li>
+                            <li><a href="disclosure-report.html">审计报告</a></li>
+                        </ul>
+                    </div>
+                </div>
+            	<div class="about-dynamic-right">
+                	<div class="dynright-title">项目动态</div>
+                	<div class="dynright-conn">
+                    	<ul>
+                        	<li>
+                            	<div class="dyna-left"><img src="image/dynapo-left.jpg" /></div>
+                                <div class="dyna-right">
+                                	<h2>助教项目——多媒体教学设备入径山镇中学<span>2014-02-17</span></h2>
+                                    <p>支持国家教育事业，致力于慈善助学、特别是贫困地区的儿童和青少年教育福利事业，致力于野生动物和环境保护事业，弘扬社会正气与良知，发展社会慈善和公益事业，为国民素质的进一步提高，构建和谐社会贡献力量</p>                                </div>
+                            </li>
+                            <li>
+                            	<div class="dyna-left"><img src="image/dynapo-left.jpg" /></div>
+                                <div class="dyna-right">
+                                	<h2>助教项目——多媒体教学设备入径山镇中学<span>2014-02-17</span></h2>
+                                    <p>支持国家教育事业，致力于慈善助学、特别是贫困地区的儿童和青少年教育福利事业，致力于野生动物和环境保护事业，弘扬社会正气与良知，发展社会慈善和公益事业，为国民素质的进一步提高，构建和谐社会贡献力量</p>                                </div>
+                            </li>
+                            <li>
+                            	<div class="dyna-left"><img src="image/dynapo-left.jpg" /></div>
+                                <div class="dyna-right">
+                                	<h2>助教项目——多媒体教学设备入径山镇中学<span>2014-02-17</span></h2>
+                                    <p>支持国家教育事业，致力于慈善助学、特别是贫困地区的儿童和青少年教育福利事业，致力于野生动物和环境保护事业，弘扬社会正气与良知，发展社会慈善和公益事业，为国民素质的进一步提高，构建和谐社会贡献力量</p>                                </div>
+                            </li>
+                            <li>
+                            	<div class="dyna-left"><img src="image/dynapo-left.jpg" /></div>
+                                <div class="dyna-right">
+                                	<h2>助教项目——多媒体教学设备入径山镇中学<span>2014-02-17</span></h2>
+                                    <p>支持国家教育事业，致力于慈善助学、特别是贫困地区的儿童和青少年教育福利事业，致力于野生动物和环境保护事业，弘扬社会正气与良知，发展社会慈善和公益事业，为国民素质的进一步提高，构建和谐社会贡献力量</p>                                </div>
+                            </li>
+                            <li>
+                            	<div class="dyna-left"><img src="image/dynapo-left.jpg" /></div>
+                                <div class="dyna-right">
+                                	<h2>助教项目——多媒体教学设备入径山镇中学<span>2014-02-17</span></h2>
+                                    <p>支持国家教育事业，致力于慈善助学、特别是贫困地区的儿童和青少年教育福利事业，致力于野生动物和环境保护事业，弘扬社会正气与良知，发展社会慈善和公益事业，为国民素质的进一步提高，构建和谐社会贡献力量</p>                                </div>
+                            </li>
+                            <li>
+                            	<div class="dyna-left"><img src="image/dynapo-left.jpg" /></div>
+                                <div class="dyna-right">
+                                	<h2>助教项目——多媒体教学设备入径山镇中学<span>2014-02-17</span></h2>
+                                    <p>支持国家教育事业，致力于慈善助学、特别是贫困地区的儿童和青少年教育福利事业，致力于野生动物和环境保护事业，弘扬社会正气与良知，发展社会慈善和公益事业，为国民素质的进一步提高，构建和谐社会贡献力量</p>                                </div>
+                            </li>
+                        </ul>
+                    
+                    </div>
+                    <div class="List_Pagination">
+                <div class="Pagination">
+                <span><a href="#">首页</a></span>
+                <span><a href="#">上一页</a></span>
+                <div class="Pagination_1">
+                  <a>1</a>
+                  <a>2</a>
+                  <a>3</a>
+                  <a>4</a>
+                  <a>5</a>
+                  <a>…</a>
+                </div>
+                <span><a href="#">下一页</a></span>
+                <span><a href="#">未页</a></span>
+              </div>
+            </div>
+                </div>
+            </div>
+        
+        </section>
+    	<footer>
+        	<div class="foot-link">
+            	<div class="folink-title">友情链接<span>FRIENDLY LINKS</span></div>
+                <div class="folink-conn">
+                	<a href="#">浙江省慈善总会</a>
+                    <a href="#">浙江省慈善总会</a>
+                    <a href="#">浙江省慈善总会</a>
+                    <a href="#">浙江省慈善总会</a>
+                    <a href="#">浙江省慈善总会</a>
+                    <a href="#">浙江省慈善总会</a>
+                </div>
+            </div>
+            
+            <div class="foot-copy">
+            	<p><a href="#">首页</a> - <a href="#">关于我们</a> - <a href="#">信息披露</a> - <a href="#">服务项目</a> - <a href="#">志愿者</a></p>
+                <p>浙江省绿色共享教育基金会 版权所有 2015 浙ICP备10046535号</p>
+            </div>
+        </footer>
+    
+    </div>
+	<div class="wrap-bottom"></div>
+</header>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!--  
+.rb{   
+	margin-right: 1px;
+	margin-left: 1px;
+	border-right: none;
+	border-bottom: none;
+	border-top: #fff 1px solid; 
+    padding-right: 5px;
+    padding-left: 5px; 
+    padding-bottom: 3px;
+    padding-top: 2px;
+    font-size: 14px;    
+    background: #E6854B;    
+    cursor: pointer;    
+    color: #fff;    
+    height: 26px}   
+-->  
+.goodsarea{
+	float: center;
+	padding: 2px 0 0 0;
+}
+.goodsarea li{
+	position: relative;
+	height: 200px;
+	float: left;
+	padding: 3px 0 0 0;
+}
+.goodsimage {
+	width:210px;
+    border: 1px solid #E0E0E0;
+    border-radius: 2px;
+    height: 200px;
+    overflow: hidden;
+    display: inline;
+    float: left;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-bottom: 3px
+}
+
+img.logo {
+    margin: -4px 0 0 -4px;
+    position: absolute;
+    z-index: 998;
+}
+
+.goodsimage .prev{
+	width: 200px;
+	height: 190px;
+	text-align: center;
+	background: #fafafa;
+	margin-top: 5px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+}
+.goodsimage .prev img{
+	max-width: 200px;
+	max-height: 190px;
+}

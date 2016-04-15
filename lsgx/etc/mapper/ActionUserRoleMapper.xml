@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsgx.admin.mapper.ActionUserRoleMapper">
+	<resultMap id="ActionUserRole" type="com.lsgx.admin.model.ActionUserRole">
+		<result property="id" column="id"></result>
+		<result property="userId" column="userId"></result>
+		<result property="roleId" column="roleId"></result>
+	</resultMap>
+	<!-- 用户角色关联查询  sql -->
+	<select id="queryUserRole" parameterType="com.lsgx.admin.model.ActionUserRole" resultType="ActionUserRole">
+		select * from action_userRole 
+		<where>
+			<if test="userId !=null">
+				userId =#{userId}
+			</if>
+			<if test="roleId !=null">
+				roleId =#{roleId}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 用户角色关联查询  sql -->
+	<select id="selectUserRole" parameterType="com.lsgx.admin.model.ActionUserRole" resultType="int">
+		select count(1) as a from action_userRole where userId =#{userId} and roleId = #{roleId}
+	</select>
+	<!-- 删除角色功能关联信息 -->
+	<delete id="userRoleDelete"  parameterType="int">
+		delete  from action_userRole where roleId=#{id}
+	</delete>
+	<!-- 删除用户角色关联信息 -->
+	<delete id="userDeleteId"  parameterType="int">
+		delete  from action_userRole where userId=#{id}
+	</delete>
+	<!-- 用户角色关联新增 sql -->
+	<insert id="userRoleAdd" parameterType="com.lsgx.admin.model.ActionUserRole" useGeneratedKeys="true" keyProperty="id">
+  		insert into action_userRole
+  		(
+  			userId,
+  			roleId
+  		)
+  		values
+  		(
+            #{userId},
+  			#{roleId}
+  		) 
+  	</insert> 
+</mapper>

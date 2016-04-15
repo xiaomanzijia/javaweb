@@ -1,0 +1,80 @@
+@charset "utf-8";
+/* CSS Document */
+/*b标签为等级数字样式,请不要使用*/
+
+html,body,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,fieldset,input,lable,textarea,p,blockquote,td {margin:0;padding:0;}
+h1,h2,h3,h4,h5,h6{ font-weight:normal;}
+body{ font-size:12px;font-family:"Microsoft Yahei",sans-serif; background-color:#b4c49a;}
+label, input, select {vertical-align:middle; border:none; }
+strong{ font-weight:normal}
+img, button {background:none;border:0 none;}
+ol,ul,li {list-style:none;}
+i,em{ font-style:normal;}
+a:link {color: #333;text-decoration: none;}
+a:visited {text-decoration: none;color: #333;}
+a:hover {text-decoration: none;color: #e8320d;}
+a:active {text-decoration: none;color: #333;}
+
+.left{ float:left;}
+.right{ float:right;}
+
+a:focus,*:focus { outline:none;}
+.clearfix:before,.clearfix:after { content:""; display:table;}
+.clearfix:after {clear:both; overflow:hidden;}
+.clearfix { zoom:1; /* for ie6 & ie7 */}
+.clearer { clear:both; display:block;	*display:none; font-size:0; height:0; line-height:0; overflow:hidden;}
+.clear { clear:both; display:block; font-size:0; height:0; line-height:0; overflow:hidden;}
+
+
+/* scorll */
+/*::-webkit-scrollbar-track-piece{ background-color:#fff; -webkit-border-radius:0;}
+::-webkit-scrollbar{ width:15px; height:8px;}
+::-webkit-scrollbar-thumb{ height:50px; background-color:#999; -webkit-border-radius:10px;}
+::-webkit-scrollbar-thumb:hover{ height:50px; background-color:#9f9f9f; -webkit-border-radius:10px;}*/
+/* scorll end */
+
+
+
+/*IOS*/
+input[type="button"]{
+-webkit-appearance: none;
+}
+
+
+
+/*外框背景(start)*/
+.wrap-top{ width:1083px; height:27px; background:url(../image/shared_top.png) no-repeat 0 0; margin:0 auto;}
+.wrap-middle{ width:1083px; min-height:600px; height:auto; background:url(../image/shared_the.png) repeat-y 0 0; margin:0 auto;}
+.wrap-bottom{ width:1083px; height:40px; background:url(../image/shared_down.png) no-repeat 0 0; margin:0 auto;}
+
+
+/*头部*/
+.share-top{ width:1021px; height:91px; margin:0 auto;}
+.share-top .share-left{ float:left; width:432px; height:73px; padding:9px 0 0 3px;}
+.share-top .share-right{ float:left; padding:34px 0 0 34px;}
+
+
+.share-nav{ width:1021px; height:34px; margin:16px auto 12px; border-bottom:3px solid #00923f;}
+.share-nav .shnav_left{ height:34px; width:730px; float:left;}
+.share-nav .shnav_left li{ float:left; width:90px; height:34px; margin-right:28px; }
+.share-nav .shnav_left li a{ display:block;line-height:34px; text-align:center; font-size:14px; color:#000000;}
+.share-nav .shnav_left li a.active{ background-color:#00923f; color:#fff; border-top-left-radius:6px;border-top-right-radius:6px;}
+
+.share-nav .shnav_contact{ float:right; padding-right:10px; font-size:18px; color:#00923f; line-height:34px; font-style:italic;}
+
+
+/*尾部*/
+.foot-link{ height:auto; display:block; width:1021px; margin:0 auto;}
+.foot-link .folink-title{  height: 55px; line-height: 55px; font-size: 22px; color: #000000;}
+.foot-link .folink-title span{ font-size: 14px; text-transform: uppercase; margin-left: 8px;}
+
+.foot-link .folink-conn{ border-top:1px solid #d8d8d8; border-bottom:1px solid #d8d8d8; line-height:54px;}
+.foot-link .folink-conn a{ font-size:14px; color:#000000; display:inline-block; margin-right:22px;}
+.foot-link .folink-conn a:hover{ color:#ee4900;}
+
+.foot-copy{ height:74px; margin-top:14px;}
+.foot-copy p{ height:30px; line-height:30px; text-align:center; color:#000000; font-size:12px;}
+.foot-copy p a{ font-size:12px; color:#000;}
+.foot-copy p a:hover{ color:#ee4900;}
+
+

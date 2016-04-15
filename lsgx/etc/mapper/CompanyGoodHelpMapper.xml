@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsgx.admin.mapper.CompanyGoodHelpMapper">
+	
+	<update id="update" parameterType="CompanyGoodHelp">
+		update company_GoodHelp 
+		<set>
+			<if test="company_id != null">
+				company_id = #{company_id},
+			</if>
+			<if test="userId != null">
+				userId = #{userId},
+			</if>
+			<if test="project_id != null">
+				project_id = #{project_id},
+			</if>
+			<if test="perMoney != null">
+				perMoney = #{perMoney},
+			</if>
+			<if test="freezAmount != null">
+				freezAmount = #{freezAmount},
+			</if>
+			<if test="state != null">
+				state = #{state},
+			</if>
+			<if test="stopReason != null">
+				stopReason = #{stopReason},
+			</if>
+			<if test="payState != null">
+				payState = #{payState},
+			</if>
+			<if test="leaveAmount != null">
+				leaveAmount = #{leaveAmount},
+			</if>
+			<if test="capitalinoutId !=null">
+				capitalinoutId = #{capitalinoutId},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	<!-- 通过userId查询记录 -->
+	<select id="selectByUserid" resultType="CompanyGoodHelp" parameterType="Integer">
+		select * from company_GoodHelp 
+		where userId = #{userId}
+	</select>
+	
+	<select id="queryByParam" parameterType="map" resultType="CompanyGoodHelp">
+			select t.*,p.title as projectName 
+				from  
+			company_GoodHelp t ,cs_project p 
+			<where>
+				t.project_id = p.id
+				<if test="userId != null">
+					and t.userId = #{userId}
+				</if>
+				<if test="state != null">
+					and t.state = #{state}
+				</if>
+				<if test="project_id != null">
+					and t.project_id = #{project_id}
+				</if>
+				<if test="company_id != null">
+					and t.company_id = #{company_id}
+				</if>
+			</where>
+			
+			<choose>
+				<when test="orderField !=null and orderField !=''">
+					 order by  ${orderField} 
+					 <if test="orderDirection != null and orderDirection != ''">${orderDirection}</if>
+				</when>
+				<otherwise>
+					 order by id DESC
+				</otherwise>
+			</choose>
+	</select>
+	
+	<select id="queryUnPayAndTimeout"  resultType="CompanyGoodHelp">
+		select  * from company_GoodHelp  where payState = 300
+		and TIMESTAMPDIFF ( MINUTE  ,createTime  ,now()) >5 for update
+	</select>
+	
+	<select id="queryById" parameterType="int" resultType="CompanyGoodHelp">
+		select * from company_GoodHelp where id=#{id}
+	</select>
+</mapper>

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsgx.admin.mapper.CompanyMapper">
+	<insert id="save" parameterType="Company"  useGeneratedKeys="true" keyProperty="id">
+		insert into company
+		(
+			userId,
+			name,
+			address,
+			head,
+			mobile,
+			introduction,
+			balance,
+			registerNo,
+			groupCode,
+			legalName,
+			identity,
+			mobileState,
+			url,
+			type,
+			infomation,
+			useState,
+			state,
+			serviceField,
+			registerTime,
+			lastUpdateTime,
+			goodPassWord
+		)
+		values
+		(
+			#{userId},
+			#{name},
+			#{address},
+			#{head},
+			#{mobile},
+			#{introduction},
+			#{balance},
+			#{registerNo},
+			#{groupCode},
+			#{legalName},
+			#{identity},
+			#{mobileState},
+			#{url},
+			#{type},
+			#{infomation},
+			#{useState},
+			#{state},
+			#{serviceField},
+			#{registerTime},
+			#{lastUpdateTime},
+			#{goodPassWord}
+		)
+	</insert>
+	
+	<update id="update" parameterType="Company" >
+		update company
+		<set>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			
+			<if test="address != null">
+				address = #{address},
+			</if>
+			
+			<if test="head != null">
+				head = #{head},
+			</if>
+			
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>
+			
+			<if test="infomation != null">
+				infomation = #{infomation},
+			</if>
+			
+			<if test="state != null">
+				state = #{state},
+			</if>
+			
+			<if test="useState != null">
+				useState = #{useState},
+			</if>
+			
+			<if test="balance != null">
+				balance = #{balance},
+			</if>
+			
+			<if test="registerNo != null">
+				registerNo = #{registerNo},
+			</if>
+			
+			<if test="groupCode != null">
+				groupCode = #{groupCode},
+			</if>
+			
+			<if test="legalName != null">
+				legalName = #{legalName},
+			</if>
+			
+			<if test="identity != null">
+				identity = #{identity},
+			</if>
+			
+			<if test="mobileState != null">
+				mobileState = #{mobileState},
+			</if>
+			
+			<if test="contentImageId != null">
+				contentImageId = #{contentImageId},
+			</if>
+			
+			<if test="coverImageId != null">
+				coverImageId = #{coverImageId},
+			</if>
+			
+			<if test="conpanyImageId != null">
+				conpanyImageId = #{conpanyImageId},
+			</if>
+			
+			<if test="url != null">
+				url = #{url},
+			</if>
+			
+			<if test="introduction != null">
+				introduction = #{introduction},
+			</if>
+			
+			<if test="lastUpdateTime != null">
+				lastUpdateTime = #{lastUpdateTime},
+			</if>
+			
+			<if test="serviceField != null">
+				serviceField = #{serviceField},
+			</if>
+			<if test="goodPassWord != null">
+				goodPassWord = #{goodPassWord},
+			</if>
+			
+		</set>
+		<where>
+			<if test="id != null">
+				id = #{id}
+			</if>
+			<if test="userId != null">
+				and userId = #{userId}
+			</if>
+		</where>
+	</update>
+	
+	<select id = "queryByParam"  parameterType="map" resultType="Company">
+		select *  from  company  
+			<where>
+				<if test="userId != null">
+					and userId = #{userId}
+				</if>
+				<if test="name != null and name !='' ">
+					and name like "%"#{name}"%"
+				</if>
+				
+				<if test="address != null and address !='' ">
+					and address like "%"#{address}"%"
+				</if>
+				
+				<if test="head != null and head !='' ">
+					and head like "%"#{head}"%"
+				</if>
+				
+				<if test="mobile != null and mobile !='' ">
+					and mobile = #{mobile}
+				</if>
+				
+				<if test="state != null">
+					and state = #{state}
+				</if>
+				
+				<if test="registerNo != null and registerNo !='' ">
+					and registerNo like "%"#{registerNo}"%"
+				</if>
+				
+				<if test="groupCode != null and groupCode !='' ">
+					and groupCode like "%"#{groupCode}"%"
+				</if>
+				
+				<if test="legalName != null and legalName !='' ">
+					and legalName like "%"#{legalName}"%"
+				</if>
+				
+				<if test="identity != null and identity !='' ">
+					and identity = #{identity}
+				</if>
+				
+				<if test="mobileState != null ">
+					and mobileState = #{mobileState}
+				</if>
+				
+				<if test="type != null ">
+					and type = #{type}
+				</if>
+				
+				<if test="useState != null ">
+					and useState = #{useState}
+				</if>
+				
+				<if test="goodPassWord != null and goodPassWord !='' ">
+					and goodPassWord like "%"#{goodPassWord}"%"
+				</if>
+				
+			</where>
+			
+		<choose>
+			<when test="orderField !=null and orderField !=''">
+				 order by  ${orderField} 
+				 <if test="orderDirection != null and orderDirection != ''">${orderDirection}</if>
+			</when>
+			<otherwise>
+				 order by id DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id = "queryByCompany"  parameterType="Company" resultType="Company">
+		select *  from  company 
+		<where>
+			<if test="userId != null">
+				and userId = #{userId}
+			</if>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="name != null and name !='' ">
+				and name = #{name}
+			</if>
+			
+			<if test="address != null and address !='' ">
+				and address like "%"#{address}"%"
+			</if>
+			
+			<if test="head != null and head !='' ">
+				and head = #{head}
+			</if>
+			
+			<if test="mobile != null and mobile !='' ">
+				and mobile = #{mobile}
+			</if>
+			
+			<if test="state != null">
+				and state = #{state}
+			</if>
+			
+			<if test="registerNo != null and registerNo !='' ">
+				and registerNo = #{registerNo}
+			</if>
+			
+			<if test="groupCode != null and groupCode !='' ">
+				and groupCode = #{groupCode}
+			</if>
+			
+			<if test="legalName != null and legalName !='' ">
+				and legalName like "%"#{legalName}"%"
+			</if>
+			
+			<if test="identity != null and identity !='' ">
+				and identity = #{identity}
+			</if>
+			
+			<if test="mobileState != null ">
+				and mobileState = #{mobileState}
+			</if>
+			
+			<if test="type != null ">
+				and type = #{type}
+			</if>
+			
+			<if test="useState != null ">
+				and useState = #{useState}
+			</if>
+			
+			<if test="serviceField != null and serviceField !='' ">
+				and serviceField like "%"#{serviceField}"%"
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryByCompanyName"  resultType="Company"  parameterType="String">
+			select * from company where name=#{name}
+	</select>
+	
+	<select id="queryByLock" parameterType="Integer" resultType="Company">
+		select * from  company  where id = #{0} for update
+	</select>
+</mapper>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsgx.admin.mapper.ReportMapper">
+
+	<select id="queryByParam"  parameterType="Report" resultType="Report">
+		select r.* from  report r
+		<where>
+			<if test="id != null">
+				and  r.id = #{id}
+			</if>
+			<if test="projectId != null">
+				and r.projectId = #{projectId}
+			</if>
+			<if test="type !=null ">
+				and r.type = #{type}
+			</if>
+			<if test=" reportPeople != null">
+			 	and r.reportPeople = #{reportPeople}
+			</if>
+			<if test="startDate != null">
+				and r.operatorTime &gt;=#{startDate}
+			</if>
+			<if test="endDate != null">
+				and r.operatorTime &lt;=#{endDate}
+			</if>
+		</where>
+		
+		<choose>
+			<when test="orderField !=null and orderField !=''">
+				 order by  ${orderField} 
+				 <if test="orderDirection != null and orderDirection != ''">${orderDirection}</if>
+			</when>
+			<otherwise>
+				 order by r.operatorTime DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="save" parameterType="Report" useGeneratedKeys="true" keyProperty="id">
+	
+		insert  into  report  
+		(
+			projectId,
+			type,
+			content,
+			reportPeople,
+			operatorTime
+		)
+		values
+		(
+			#{projectId},
+			#{type},
+			#{content},
+			#{reportPeople},
+			#{operatorTime}	
+		)
+	</insert>
+	
+	<update id="update" parameterType="Report">
+		update report 
+		<set>
+			<if test="type != null">
+				type = #{type},
+			</if>
+			<if test="content != null">
+				content = #{content},
+			</if>
+			<if test="reportPeople != null">
+				reportPeople = #{reportPeople},
+			</if>
+			<if test="operatorTime != null">
+				operatorTime = #{operatorTime},
+			</if>
+			<if test="contentImageId != null and contentImageId != ''">
+				contentImageId = #{contentImageId},
+			</if>
+		</set>
+		where  id = #{id}
+	</update>
+	
+	<select id="queryById"  resultType="report"  parameterType="int">
+		select  * from  report 
+		<where>
+			id = #{id}
+		</where>
+	</select>
+	
+</mapper>	

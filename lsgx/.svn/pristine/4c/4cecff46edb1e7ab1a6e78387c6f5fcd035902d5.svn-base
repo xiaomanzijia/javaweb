@@ -1,0 +1,166 @@
+/*banner*/
+.share-banner{ width:1021px; height:306px; background:url(../image/share-banner.jpg) no-repeat 0 0; margin:0 auto;}
+
+/*banner*/
+
+
+/*首页内容*/
+.share-main{ width:1021px; height:auto; display:block; overflow:hidden; margin:0 auto;}
+.share-main .shamain-left{ width:695px; float:left; height:auto; display:block; overflow:hidden;}
+.share-main .shamain-left .shamabout-title{ height:55px; line-height:55px; font-size:22px; color:#000000;}
+.share-main .shamain-left .shamabout-title span{ font-size:14px;text-transform:uppercase; margin-left:8px;}
+
+.share-main .shamain-left .shamabout-content{ width:665px; height:auto; min-height:400px; border:1px solid #d8d8d8; padding:14px;}
+.share-main .shamain-left .shamabout-content .about-us{ height:277px; border-bottom:1px solid #d8d8d8;}
+.share-main .shamain-left .shamabout-content .about-us .shabout-left{ float:left; width:226px; height:249px; border:2px solid #eaeaea;}
+.share-main .shamain-left .shamabout-content .about-us .shabout-left img{ max-width:226px; max-height:249px;}
+
+.share-main .shamain-left .shamabout-content .about-us .shabout-right{ width:406px; float:right; padding-right:12px;height:262px; position:relative;}
+.share-main .shamain-left .shamabout-content .about-us .shabout-right p{ font-size:13px; line-height:24px; text-indent:2em; color:#000000;}
+.share-main .shamain-left .shamabout-content .about-us .shabout-right .about-btn{ width:159px; height:34px; line-height:34px; background-color:#098e4d; font-size:14px; color:#ffffff; border-radius:4px; text-align:center; display:inline-block; position:absolute; right:6px; bottom:0px;}
+.share-main .shamain-left .shamabout-content .about-us .shabout-right .about-btn:hover{ background-color:#27a169;}
+
+.share-main .shamain-left .shamabout-content .shama-donation{ margin-top:22px;}
+.share-main .shamain-left .shamabout-content .shama-donation .shadona-on{ height:35px; font-size:16px; color:#ffffff; border-radius:4px; background-color:#27a169; padding-left:16px; line-height:35px;}
+.share-main .shamain-left .shamabout-content .shama-donation .shadona-way{ margin-top:14px; height:auto; display:block; overflow:hidden;}
+.share-main .shamain-left .shamabout-content .shama-donation .shadona-way .shway-left{ float:left; width:362px; height:123px; padding:10px 21px; border-right:1px solid #e8e8e8;}
+.share-main .shamain-left .shamabout-content .shama-donation .shadona-way .shway-left h2{ height:30px; line-height:30px; font-size:14px; color:#757575;}
+.share-main .shamain-left .shamabout-content .shama-donation .shadona-way .shway-left p{ line-height:30px; font-size:12px; color:#949494;}
+
+
+.share-main .shamain-left .shamabout-content .shama-donation .shadona-way .shway-right{ float:right; width:235px; padding-left:20px; margin-top:4px;}
+.share-main .shamain-left .shamabout-content .shama-donation .shadona-way .shway-right .shway-dona li{ margin-top:12px; line-height:24px; color:#757575;}
+.share-main .shamain-left .shamabout-content .shama-donation .shadona-way .shway-right .shway-dona li span{ display:inline-block; height:24px; line-height:24px; font-size:14px; color:#757575;}
+.share-main .shamain-left .shamabout-content .shama-donation .shadona-way .shway-right .shway-dona li .shw_input{ width:105px; height:22px; border:1px solid #cfcfcf; font-size:12px; color:#9f9f9f; padding-left:8px; border-radius:4px; margin-right:10px; margin-top:-4px;}
+.share-main .shamain-left .shamabout-content .shama-donation .shadona-way .shway-right .shway-dona li .shw_sele{ width:138px;height:24px; border:1px solid #cfcfcf; font-size:12px;color:#9f9f9f; border-radius:4px;padding-left:8px; margin-top:-4px; padding-top:2px; padding-bottom:2px;}
+.share-main .shamain-left .shamabout-content .shama-donation .shadona-way .shway-right .shway-dona li .shw_btn{ width:141px; height:30px; cursor:pointer; line-height:30px; font-size:14px; color:#ffffff; text-align:center; background:url(../image/shw_sele-btn.jpg) no-repeat 0 0; border-radius:4px; margin-left:41px; margin-top:4px;}
+.share-main .shamain-left .shamabout-content .shama-donation .shadona-way .shway-right .shway-dona li .shw_btn:hover{ opacity:0.9;}
+
+.share-main .shamain-right{ float:right; width:314px; height:auto; display:block; overflow:hidden;}
+.share-main .shamain-right .shama-title{ height: 55px; line-height: 55px; font-size: 22px; color: #000000;}
+.share-main .shamain-right .shama-conn{ width:282px; height:224px; padding:8px 15px; border:1px solid #d8d8d8;}
+.share-main .shamain-right .shama-conn ul li{ height:32px; line-height:32px;}
+.share-main .shamain-right .shama-conn ul li a{ font-size:13px; color:#2c2c2c; display:inline-block; height:32px; line-height:32px;}
+.share-main .shamain-right .shama-conn ul li span{ float:right; font-size:11px; color:#666;}
+.share-main .shamain-right .shama-conn ul li a:hover{ color:#000;}
+.share-main .shamain-right .shama-conn ul li a.active{ color:#ee4900;}
+
+.share-main .shamain-right .shama-fund{ height:203px; padding:10px 12px; border:1px solid #d8d8d8; }
+.share-main .shamain-right .shama-fund .shfund-img{ height:76px; margin-bottom:4px;}
+.share-main .shamain-right .shama-fund ul li{ height:32px; line-height:32px;}
+
+.share-main .shamain-right .shama-fund ul li a{ font-size:13px; color:#2c2c2c; display:inline-block; height:32px; line-height:32px;}
+.share-main .shamain-right .shama-fund ul li span{ float:right; font-size:11px; color:#666;}
+.share-main .shamain-right .shama-fund ul li a:hover{ color:#000;}
+.share-main .shamain-right .shama-fund ul li a.active{ color:#ee4900;}
+
+
+/*基金会介绍*/
+.about-intro-main{width:1021px; height:auto; display:block; overflow:hidden; margin:45px auto;}
+.about-intro-main .about-intro-left{ float:left; width:200px; height:auto; display:block; overflow:hidden;}
+.about-intro-main .about-intro-left .intleft-title{ height:40px; background-color:#00923f; line-height:40px; padding-left:42px; font-size:16px; color:#ffffff;}
+.about-intro-main .about-intro-left .intleft-conn{ border:1px solid #d8d8d8; padding-top:8px; padding-bottom:8px; min-height:138px;}
+.about-intro-main .about-intro-left .intleft-conn ul li{ height:42px;}
+.about-intro-main .about-intro-left .intleft-conn ul li a{ display:block; height:42px; line-height:42px;  padding-left:45px; font-size:14px; color:#000000;}
+.about-intro-main .about-intro-left .intleft-conn ul li a.active{height:40px; border-top:1px solid #d8d8d8; border-bottom:1px solid #d8d8d8; line-height:40px; background-color:#f6f6f6;}
+
+.about-intro-main .about-intro-right{ float:right; width:808px; height:auto; display:block; overflow:hidden; border:1px solid #d8d8d8;}
+.about-intro-main .about-intro-right .intright-title{ height:40px; line-height:40px; background-color:#f6f6f6; font-size:14px; color:#000000; padding-left:17px; background-color:#f6f6f6;border-bottom:1px solid #d8d8d8}
+.about-intro-main .about-intro-right .intright-conn{ padding:10px; height:auto; display:block; overflow:hidden; line-height:36px; font-size:14px; color:#000000;}
+.about-intro-main .about-intro-right .intright-conn img.intr-img{ float:left; padding:0 20px;}
+
+
+/*基金会发起人*/
+.about-intro-main .about-intro-right .intright-conn span{ font-size:18px; color:#000;}
+.about-intro-main .about-intro-right .intright-conn em{ font-size:14px; color:#666666;}
+.about-intro-main .about-intro-right .intright-conn img.spon-img{ float:left; padding:10px 20px 0 10px;}
+.about-intro-main .about-intro-right .intright-conn h3{ padding-bottom:4px; height:36px; line-height:36px; padding-top:6px; }
+
+
+/*基金会组织结构*/
+
+.about-intro-main .about-intro-right .intright-stru{ padding:40px; text-align:center; }
+.about-intro-main .about-intro-right .intright-stru .stru-img{}
+
+/*基金会理事会*/
+.about-intro-main .about-intro-right .intright-board{ padding:30px;height:auto; display:block; overflow:hidden; font-size:14px; color:#231f20; line-height:28px;}
+.about-intro-main .about-intro-right .intright-board img{ padding-bottom:30px;}
+
+
+
+/*基金会章程*/
+.about-intro-main .about-intro-right .intright-articles{padding:10px 20px; height:auto; display:block; overflow:hidden; line-height:36px; font-size:14px; color:#000000;}
+
+/*联系我们*/
+.about-intro-main .about-intro-right .intright-contact{padding:30px;height:auto; display:block; overflow:hidden; }
+.about-intro-main .about-intro-right .intright-contact img{ float:left;}
+.about-intro-main .about-intro-right .intright-contact .conta-plon{ margin-left:434px; line-height:40px;}
+.about-intro-main .about-intro-right .intright-contact .conta-plon h2{ font-size:24px; color:#000000; margin:4px 0;}
+.about-intro-main .about-intro-right .intright-contact .conta-plon ul li{line-height:40px; font-size:14px; color:#000000;}
+.about-intro-main .about-intro-right .intright-contact .conta-plon ul li .demo{ float:left; width:78px; height:40px;}
+.about-intro-main .about-intro-right .intright-contact .conta-plon ul li .demo-add{ float:left; width:235px;}
+.about-intro-main .about-intro-right .intright-contact .conta-plon ul li .lhm24{ line-height:24px;  margin:8px 0;}
+.about-intro-main .about-intro-right .intright-contact .conta-plon ul li p{ float:left; line-height:25px; margin-top:10px;}
+
+
+
+/*信息批露*/
+.about-dynamic-right{float:right; width:808px; height:auto; display:block; overflow:hidden; border:1px solid #d8d8d8;}
+.about-dynamic-right .dynright-title{ height:40px; line-height:40px; background-color:#f6f6f6; font-size:14px; color:#000000; padding-left:17px; background-color:#f6f6f6;border-bottom:1px solid #d8d8d8}
+.about-dynamic-right .dynright-conn{ padding:0 18px 18px; height:auto; display:block; overflow:hidden;}
+.about-dynamic-right .dynright-conn ul li{ padding:18px 0; border-bottom:1px dashed #a5a5a5;}
+.about-dynamic-right .dynright-conn ul li .dyna-left{ float:left; width:126px; height:83px;}
+.about-dynamic-right .dynright-conn ul li .dyna-left img{ max-width:126px; max-height:83px;}
+.about-dynamic-right .dynright-conn ul li .dyna-right{ margin-left:144px; height:83px;}
+.about-dynamic-right .dynright-conn ul li .dyna-right h2{ font-size:14px; color:#000000; line-height:26px; height:32px;}
+.about-dynamic-right .dynright-conn ul li .dyna-right h2 span{ font-size:12px; color:#999999; margin-left:12px;}
+.about-dynamic-right .dynright-conn ul li .dyna-right p{ line-height:24px; color:#666666;}
+
+
+
+
+/*公益项目*/
+.about-welfare-right{float:right; width:808px; height:auto; display:block; overflow:hidden; border:1px solid #d8d8d8;}
+.about-welfare-right .welfareright-title{ height:40px; line-height:40px; background-color:#f6f6f6; font-size:14px; color:#000000; padding-left:17px; background-color:#f6f6f6;border-bottom:1px solid #d8d8d8}
+.about-welfare-right .welfareright-conn{ padding:26px; height:auto; display:block; overflow:hidden; line-height:24px; font-size:14px; color:#231f20;}
+
+
+
+
+/*专项基金*/
+.about-special-right{float:right; width:808px; height:auto; display:block; overflow:hidden; border:1px solid #d8d8d8;}
+.about-special-right .special-title{ height:40px; line-height:40px; background-color:#f6f6f6; font-size:14px; color:#000000; padding-left:17px; background-color:#f6f6f6;border-bottom:1px solid #d8d8d8}
+.about-special-right .special-conn{ padding:26px; height:auto; display:block; overflow:hidden; line-height:24px; font-size:14px; color:#231f20;}
+.about-special-right .special-conn .speco-img{ float:left; font-size:14px; color:#231f20; line-height:24px; margin-right:30px;}
+
+/*志愿者联盟*/
+.about-volunteers-right{float:right; width:808px; height:auto; display:block; overflow:hidden; border:1px solid #d8d8d8;}
+.about-volunteers-right .volunteers-title{ height:40px; line-height:40px; background-color:#f6f6f6; font-size:14px; color:#000000; padding-left:17px; background-color:#f6f6f6;border-bottom:1px solid #d8d8d8}
+.about-volunteers-right .volunteers-conn{ padding:26px; height:auto; display:block; overflow:hidden; line-height:24px; font-size:14px; color:#231f20;}
+.about-volunteers-right .volunteers-conn .volunteers-img{ float:left; font-size:14px; color:#231f20; line-height:24px; margin-right:30px;}
+.about-volunteers-right .volunteers-conn span{ display:block; line-height:30px; font-size:20px; color:#00a651;}
+.about-volunteers-right .volunteers-conn strong{ font-weight:bold;}
+
+/*志愿者活动*/
+.about-volunteers-right .voluntolp-conn{  padding: 0 18px 18px; height: auto; display: block; overflow: hidden;}
+.about-volunteers-right .voluntolp-conn ul li{ padding:18px 0; border-bottom:1px dashed #a5a5a5;}
+.about-volunteers-right .voluntolp-conn ul li .dyna-left{ float:left; width:126px; height:83px;}
+.about-volunteers-right .voluntolp-conn ul li .dyna-left img{ max-width:126px; max-height:83px;}
+.about-volunteers-right .voluntolp-conn ul li .dyna-right{ margin-left:144px; height:83px;}
+.about-volunteers-right .voluntolp-conn ul li .dyna-right h2{ font-size:14px; color:#000000; line-height:26px; height:32px;}
+.about-volunteers-right .voluntolp-conn ul li .dyna-right h2 span{ font-size:12px; color:#999999; margin-left:12px;}
+.about-volunteers-right .voluntolp-conn ul li .dyna-right p{ line-height:24px; color:#666666;}
+
+
+/*分页*/
+.List_Pagination{ padding-left:15px; height:35px; padding-bottom:18px;}
+.Pagination{ width:505px; height:36px; margin:0 auto;}
+.Pagination span a{ height:30px; border:1px #d5d5d5 solid; line-height:30px; padding-left:10px; padding-right:10px; float:left; margin-right:6px; cursor:pointer;}
+.Pagination span a:hover{ background:#00923f; color:#FFF; height:32px; border:0px; padding-left:11px; padding-right:11px; line-height:30px;}
+.Bottom .Pagination .Pagination_1{ width:270px; float:left; height:32px;}
+.Pagination .Pagination_1 a{ width:30px; height:30px; border:1px #d5d5d5 solid; float:left; line-height:30px; text-align:center; cursor:pointer; margin-right:6px;}
+.Pagination .Pagination_1 a:hover{width:32px; height:32px; background:#00923f; border:0px; color:#FFF; float:left; line-height:30px; text-align:center;}
+
+
+
+

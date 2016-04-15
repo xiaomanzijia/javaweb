@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsgx.admin.mapper.BFileMapper">
+	<select id="queryById"  resultType="BFile"  parameterType="Integer">
+		select * from b_file where id=#{id}
+	</select>
+
+	<!-- 文件列表   分页查询 -->
+	<select id="queryBFileList" resultType="com.lsgx.admin.model.BFile" parameterType="BFileVO">
+		select * from  b_file where 1=1
+		order by id DESC
+	</select>
+
+	<!-- 文件列表  查询总数 -->
+	<select id="queryBFileListCount" resultType="int" parameterType="com.github.pagehelper.Page">
+		select count(1) as a from b_file where 1=1
+	</select>
+	<update id="update" parameterType="BFile">
+		update b_file set
+		fileType=#{fileType},
+		category=#{category},
+		url=#{url},
+		description=#{description},
+		isHide=#{isHide}
+		where id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="Integer">
+		delete from b_file  where id=#{id}
+	</delete>
+	
+	<insert id="save"  parameterType="BFile" useGeneratedKeys="true" keyProperty="id">
+		insert into b_file
+		(
+			fileType,
+			category,
+			url,
+			description
+		)
+		values
+		(
+			#{fileType},
+			#{category},
+			#{url},
+			#{description}
+		)
+	</insert>
+	
+	<select id="queryByIdList"  resultType="BFile"  parameterType="list">
+		select * from b_file where id in
+		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">  
+            #{item}   
+   		 </foreach> 
+	</select>
+	
+	<select id="queryByParam" resultType="BFile"  parameterType="BFile">
+		select * from b_file
+		<where>
+			<if test="fileType != null">
+				and fileType like "%"#{fileType}"%"
+			</if>
+			<if test="category != null  and category != ''">
+				and category like "%"#{category}"%"
+			</if>
+			<if test="url != null and url != ''">
+				and url like "%"#{url}"%"
+			</if>
+		</where>
+	</select>
+</mapper>

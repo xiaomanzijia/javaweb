@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsgx.admin.mapper.PayMoneyRecordMapper">
+
+	<insert id="save" parameterType="PayMoneyRecord"  useGeneratedKeys="true"  keyProperty="id">
+		
+		insert into payMoneyRecord
+		(
+			capitalinoutId,
+			projectId,
+			panMoney,
+			recipientName,
+			recipientBankType,
+			account,
+			payMoneyTime,
+			operator,
+			state,
+			userId,
+			applyMoney,
+			receiptImageId,
+			createTime
+		)
+		values
+		(
+			#{capitalinoutId},
+			#{projectId},
+			#{panMoney},
+			#{recipientName},
+			#{recipientBankType},
+			#{account},
+			#{payMoneyTime},
+			#{operator},
+			#{state},
+			#{userId},
+			#{applyMoney},
+			#{receiptImageId},
+			#{createTime}
+		)
+		
+	</insert>
+	
+	<update id="update" parameterType="PayMoneyRecord">
+		update payMoneyRecord
+		<set>
+			<if test="capitalinoutId != null">
+				capitalinoutId = #{capitalinoutId},
+			</if>
+			<if test="projectId != null">
+				projectId = #{projectId},
+			</if>
+			<if test="panMoney != null">
+				panMoney = #{panMoney},
+			</if>
+			<if test="state != null">
+				state = #{state},
+			</if>
+			<if test="payMoneyTime != null">
+				payMoneyTime = #{payMoneyTime},
+			</if>
+			<if test="recipientName != null and recipientName !=''">
+				recipientName = #{recipientName},
+			</if>
+			<if test="recipientBankType  != null and recipientBankType !='' ">
+				recipientBankType = #{recipientBankType},
+			</if>
+			<if test="account  != null and account !=''">
+				account = #{account},
+			</if>
+			<if test="operator  != null ">
+				operator = #{operator},
+			</if>
+			<if test="userId  != null ">
+				userId = #{userId},
+			</if>
+			<if test="applyMoney  != null ">
+				applyMoney = #{applyMoney},
+			</if>
+		</set>
+		<where>
+			id = #{id}
+		</where>
+	</update>
+	
+	<select id="select" resultType="PayMoneyRecord" parameterType="map">
+ 		select * from payMoneyRecord
+ 		<where>
+ 			<if test="id != null">
+				and id=#{id}
+			</if>
+ 			<if test="capitalinoutId != null">
+				and capitalinoutId = #{capitalinoutId}
+			</if>
+			<if test="projectId != null">
+				and projectId = #{projectId}
+			</if>
+			<if test="panMoney != null">
+				and panMoney = #{panMoney}
+			</if>
+			<if test="recipientName != null and recipientName != ''">
+				and recipientName like "%"#{recipientName}"%"
+			</if>
+			<if test="recipientBankType != null and recipientBankType != ''">
+				and recipientBankType like "%"#{recipientBankType}"%"
+			</if>
+			<if test="account != null and account != ''">
+				and account like "%"#{account}"%"
+			</if>
+			<if test="applyMoney != null">
+				and applyMoney = #{applyMoney}
+			</if>
+			<if test="state != null">
+				and state=#{state}
+			</if>
+			<if test="operator  != null ">
+				and operator = #{operator}
+			</if>
+			<if test="userId  != null ">
+				and userId = #{userId}
+			</if>
+			<if test="startDate != null">
+				AND payMoneyTime &gt;= #{startDate} 
+			</if>
+			<if test="endDate != null">
+				AND payMoneyTime &lt;= #{endDate} 
+			</if>
+		</where>
+		order by id DESC
+	</select>
+	
+	<select id="queryById"  resultType="PayMoneyRecord"  parameterType="Integer">
+		select * from payMoneyRecord where id=#{id}
+	</select>
+</mapper>

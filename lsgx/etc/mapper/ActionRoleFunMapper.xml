@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsgx.admin.mapper.ActionRoleFunMapper">
+	<resultMap id="ActionRoleFun" type="com.lsgx.admin.model.ActionRoleFun">
+		<result property="id" column="id"></result>
+		<result property="roleId" column="roleId"></result>
+		<result property="funId" column="funId"></result>
+	</resultMap>
+	
+	<!-- 用户角色关联查询  sql -->
+	<select id="selectRoleFun" parameterType="com.lsgx.admin.model.ActionRoleFun" resultType="int">
+		select count(1) as a from action_roleFun where roleId =#{roleId} and funId = #{funId}
+	</select>
+	
+	<!-- 删除用户角色关联信息 -->
+	<delete id="funDelete"  parameterType="int">
+		delete  from action_roleFun where funId=#{id}
+	</delete>
+	
+	<!-- 删除用户角色关联信息 -->
+	<delete id="roleFunDelete"  parameterType="int">
+		delete  from action_roleFun where roleId=#{id}
+	</delete>
+	
+	<!-- 用户角色关联新增 sql -->
+	<insert id="roleFunAdd" parameterType="com.lsgx.admin.model.ActionRoleFun" useGeneratedKeys="true" keyProperty="id">
+  		insert into action_roleFun
+  		(
+  			roleId,
+  			funId
+  		)
+  		values
+  		(
+            #{roleId},
+  			#{funId}
+  		) 
+  	</insert> 
+</mapper>

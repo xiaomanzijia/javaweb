@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lsgx.admin.mapper.AnnounceMapper">
+
+	<!-- <resultMap id="Announce" type="com.lsgx.admin.model.Announce">
+		<result property="id" column="id"></result>
+		<result property="userId" column="userId"></result>
+		<result property="destination" column="destination"></result>
+		<result property="cause" column="cause"></result>
+		<result property="content" column="content"></result>
+		<result property="title" column="title"></result>
+		<result property="type" column="type"></result>
+		<result property="priority" column="priority"></result>
+		<result property="state" column="state"></result>
+		<result property="tryCount" column="tryCount"></result>
+		<result property="sendTime" column="sendTime"></result>
+		<result property="sendType" column="sendType"></result>
+	</resultMap> -->
+	
+    <insert id="save" parameterType="Announce" useGeneratedKeys="true" keyProperty="id">
+        insert into cs_announce 
+        (
+            userId, 
+            destination,
+            cause, 
+            content,
+            title, 
+            type,
+            priority,
+            state, 
+            tryCount,
+            createTime,
+            sendTime, 
+            sendType
+        )
+        values 
+        (
+            #{userId},
+            #{destination},
+            #{cause},
+            #{content},
+            #{title},
+            #{type},
+            #{priority},
+            #{state},
+            #{tryCount},
+            #{createTime},
+            #{sendTime},
+            #{sendType}
+        )
+    </insert>
+    
+    <update id="update" parameterType="Announce">
+    	update cs_announce
+		<set>
+			<if test="userId != null">
+				userId = #{userId},
+			</if>
+			<if test="destination != null">
+				destination = #{destination},
+			</if>
+			<if test="cause != null and cause !=''">
+				cause = #{cause},
+			</if>
+			<if test="content != null and content !=''">
+				content = #{content},
+			</if>
+			<if test="type  != null and type !=''">
+				type = #{type},
+			</if>
+			<if test="priority  != null ">
+				priority = #{priority},
+			</if>
+			<if test="state  != null ">
+				state = #{state},
+			</if>
+			<if test="tryCount  != null ">
+				tryCount = #{tryCount},
+			</if>
+			<if test="sendTime  != null ">
+				sendTime = #{sendTime},
+			</if>
+			<if test="sendType  != null and sendType !='' ">
+				sendType = #{sendType},
+			</if>
+		</set>
+    	<where>
+    		<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="userId != null">
+				and userId = #{userId}
+			</if>
+			<if test="type !=null ">
+				and type = #{type}
+			</if>
+		</where>
+    </update>
+    
+    <select id="select"  parameterType="map" resultType="Announce">
+		select * from cs_announce
+		<where>
+			<if test="userId != null">
+				and userId = #{userId}
+			</if>
+			<if test="destination != null  and destination != ''">
+				and destination like "%"#{category}"%"
+			</if>
+			<if test="state != null and state != 0">
+				and state = #{state}
+			</if>
+			<if test="type !=null ">
+				and type = #{type}
+			</if>
+			<if test="sendType !=null and sendType != ''">
+				and sendType = #{sendType}
+			</if>
+			<if test="startDate != null">
+				AND sendTime &gt;= #{startDate} 
+			</if>
+			<if test="endDate != null">
+				AND sendTime &lt;= #{endDate} 
+			</if>
+		</where>
+		<choose>
+			<when test="orderField !=null and orderField !=''">
+				 order by  ${orderField} 
+				 <if test="orderDirection != null and orderDirection != ''">${orderDirection}</if>
+			</when>
+			<otherwise>
+				 order by id DESC
+			</otherwise>
+		</choose>
+	</select>
+</mapper>

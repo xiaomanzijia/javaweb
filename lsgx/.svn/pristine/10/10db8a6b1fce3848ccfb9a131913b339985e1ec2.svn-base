@@ -1,0 +1,20 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+    	<footer>
+        	<div class="foot-link">
+            	<div class="folink-title">友情链接<span>FRIENDLY LINKS</span></div>
+                <div class="folink-conn">
+                	<a href="#">浙江省慈善总会</a>
+                    <a href="#">浙江省慈善总会</a>
+                    <a href="#">浙江省慈善总会</a>
+                    <a href="#">浙江省慈善总会</a>
+                    <a href="#">浙江省慈善总会</a>
+                    <a href="#">浙江省慈善总会</a>
+                </div>
+            </div>
+            
+            <div class="foot-copy">
+            	<p><a href="#">首页</a> - <a href="#">关于我们</a> - <a href="#">信息披露</a> - <a href="#">服务项目</a> - <a href="#">志愿者</a></p>
+                <p>浙江省绿色共享教育基金会 版权所有 2015 浙ICP备10046535号</p>
+            </div>
+        </footer>
+

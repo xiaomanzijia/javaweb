@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lsgx.admin.mapper.AlipayTradeQueryMapper" >
+  <!--  文章  分页查询 -->
+  <select id="queryAlipayTradeList" resultType="com.lsgx.admin.model.AlipayTrade" parameterType="com.lsgx.admin.model.vo.AlipayTradeVO">
+    select * from alipay_trade  where 1=1
+
+    order by id desc
+  </select>
+
+  <!-- 文章 查询总数 -->
+  <select id="queryAlipayTradeCount" resultType="int" parameterType="com.github.pagehelper.Page">
+    select count(1) as a from alipay_trade where 1=1
+  </select>
+
+</mapper>

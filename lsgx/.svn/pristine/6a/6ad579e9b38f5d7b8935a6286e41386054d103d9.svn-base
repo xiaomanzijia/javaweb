@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+<title>绿色共享基金会</title>
+<link type="text/css" rel="stylesheet" href="css/public.css">
+<link type="text/css" rel="stylesheet" href="css/layout.css">
+</head>
+
+<body>
+<header>
+	<div class="wrap-top"></div>
+    <div class="wrap-middle">
+    	<header>
+        	<div class="share-top">
+            	<div class="share-left"><a href="javascript:void(0)"><img src="image/shared-logo.png" /></a></div>
+                <div class="share-right"><img src="image/shared-logo-prop.png" /></div>
+            </div>
+            <div class="share-nav">
+            	<ul class="shnav_left">
+                	<li><a href="index.html">首页</a></li>
+                    <li><a class="active" href="about-introduc.html">关于我们</a></li>
+                    <li><a href="disclosure-dynamic.html">信息批露</a></li>
+                    <li><a href="welfare-green.html">公益项目</a></li>
+                    <li><a href="special-Poverty.html">专项基金</a></li>
+                    <li><a href="volunteers-join.html">志愿者</a></li>
+                </ul>
+                <div class="shnav_contact">
+                咨询热线：0571-88900726
+                </div>
+            </div>
+        </header>
+    	<section>
+        	<div class="about-intro-main">
+            	<div class="about-intro-left">
+                	<div class="intleft-title">关于我们</div>
+                    <div class="intleft-conn">
+                    	<ul>
+                        	<li><a href="about-introduc.html">基金会介绍</a></li>
+                            <li><a href="about-sponsors.html">基金会发起人</a></li>
+                            <li><a href="about-structur.html">基金会组织结构</a></li>
+                            <li><a href="about-board.html">基金会理事会</a></li>
+                            <li><a href="about-articles.html">基金会章程</a></li>
+                            <li><a class="active" href="about-contact.html">联系我们</a></li>
+                        </ul>
+                    </div>
+                </div>
+            	<div class="about-intro-right">
+                	<div class="intright-title">联系我们</div>
+                	<div class="intright-contact">
+                    	<img src="image/about-contact-maps.jpg" />
+                        <div class="conta-plon">
+                        	<h2>浙江绿色共享教育基金会</h2>
+                            <ul>
+                            	<li><div class="demo">联系地址：</div><div class="demo-add lhm24">浙江省杭州市余杭区五常大道181号华立科技园办公大楼东7楼705</div></li>
+                            	<li><div class="demo">联系电话：</div><div class="demo-add">0571-88900802</div></li>
+                            	<li><div class="demo">传真号码：</div><div class="demo-add">0571-88901795</div></li>
+                            	<li><div class="demo">电子邮箱：</div><div class="demo-add">lijuan.sun@holley.cn</div></li>
+                                <li><img src="image/about-contact-weix.jpg" /><p>扫描二维码<br />关注基金会微信号</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        </section>
+    	<footer>
+        	<div class="foot-link">
+            	<div class="folink-title">友情链接<span>FRIENDLY LINKS</span></div>
+                <div class="folink-conn">
+                	<a href="#">浙江省慈善总会</a>
+                    <a href="#">浙江省慈善总会</a>
+                    <a href="#">浙江省慈善总会</a>
+                    <a href="#">浙江省慈善总会</a>
+                    <a href="#">浙江省慈善总会</a>
+                    <a href="#">浙江省慈善总会</a>
+                </div>
+            </div>
+            
+            <div class="foot-copy">
+            	<p><a href="#">首页</a> - <a href="#">关于我们</a> - <a href="#">信息披露</a> - <a href="#">服务项目</a> - <a href="#">志愿者</a></p>
+                <p>浙江省绿色共享教育基金会 版权所有 2015 浙ICP备10046535号</p>
+            </div>
+        </footer>
+    
+    </div>
+	<div class="wrap-bottom"></div>
+</header>
+</body>
+</html>
